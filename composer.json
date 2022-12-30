@@ -14,7 +14,7 @@
   },
   "extra": {
     "plugin": {
-      "path": "runtime/static_temp",
+      "path": "runtime/plugin-static",
       "copy": {
         "stc/think": "think",
         "stc/public": "public"

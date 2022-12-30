@@ -1,6 +1,6 @@
 <?php
 
-namespace think\admin;
+namespace app\index\controller;
 
 class Index extends \think\admin\Controller
 {
