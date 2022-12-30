@@ -16,10 +16,10 @@
     "plugin": {
       "path": "runtime/static_temp",
       "copy": {
+        "stc/think": "think",
         "stc/public": "public"
       },
       "init": {
-        "stc/think": "think",
         "stc/config/app.php": "config/app.php",
         "stc/config/cache.php": "config/cache.php",
         "stc/config/cookie.php": "config/cookie.php",
