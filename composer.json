@@ -2,7 +2,7 @@
   "type": "think-admin-plugin",
   "name": "zoujingli/think-plugs-static",
   "license": "MIT",
-  "description": "ThinkAdmin 静态初始化文件",
+  "description": "基于 ThinkAdmin 的静态及配置初始化文件",
   "authors": [
     {
       "name": "Anyon",
@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "zoujingli/think-plugs-admin": "^1.0|dev-master"
+    "zoujingli/think-plugs-installer": "^1.0"
   },
   "extra": {
     "plugin": {
