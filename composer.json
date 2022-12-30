@@ -29,7 +29,8 @@
         "stc/config/phinx.php": "config/phinx.php",
         "stc/config/route.php": "config/route.php",
         "stc/config/session.php": "config/session.php",
-        "stc/config/view.php": "config/view.php"
+        "stc/config/view.php": "config/view.php",
+        "stc/Index.php": "app/index/controller/Index.php"
       },
       "clear": true
     }
