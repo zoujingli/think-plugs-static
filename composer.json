@@ -13,7 +13,7 @@
   },
   "extra": {
     "plugin": {
-      "path": "runtime/temp_static",
+      "path": "temp_static",
       "copy": {
         "stc/public": "public"
       },
