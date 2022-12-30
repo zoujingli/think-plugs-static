@@ -66,7 +66,7 @@ return [
             // 数据库类型
             'type'        => 'sqlite',
             // 数据库文件
-            'database'    => with_path('database/sqlite.db'),
+            'database'    => syspath('database/sqlite.db'),
             // 监听执行日志
             'trigger_sql' => true,
             // 其他参数字段

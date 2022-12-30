@@ -37,7 +37,7 @@ return [
             // 驱动方式
             'type'       => 'File',
             // 缓存保存目录
-            'path'       => with_path('safefile/cache/'),
+            'path'       => syspath('safefile/cache/'),
             // 缓存名称前缀
             'prefix'     => '',
             // 缓存有效期 0 表示永久缓存
