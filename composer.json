@@ -37,7 +37,7 @@
   },
   "config": {
     "allow-plugins": {
-      "zoujingli/think-plugs-admin": true
+      "zoujingli/think-plugs-installer": true
     }
   }
 }
