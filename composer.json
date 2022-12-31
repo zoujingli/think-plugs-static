@@ -17,7 +17,10 @@
       "path": "vendor/zoujingli/think-plugs-info-static",
       "copy": {
         "stc/think": "think",
-        "stc/public": "public"
+        "stc/public/static/plugs": "!public/static/plugs",
+        "stc/public/static/theme": "!public/static/theme",
+        "stc/public/static/admin.js": "public/static/admin.js",
+        "stc/public/static/login.js": "public/static/login.js"
       },
       "init": {
         "stc/config/app.php": "config/app.php",
