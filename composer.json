@@ -14,7 +14,7 @@
   },
   "extra": {
     "plugin": {
-      "path": "runtime/plugin-static",
+      "path": "vendor/zoujingli/plguin-info-static",
       "copy": {
         "stc/think": "think",
         "stc/public": "public"
@@ -34,7 +34,10 @@
         "stc/extra/style.css": "public/static/extra/style.css",
         "stc/extra/script.js": "public/static/extra/script.js"
       },
-      "clear": true
+      "remove": [
+        "stc",
+        "readme.md"
+      ]
     }
   },
   "config": {
