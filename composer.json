@@ -34,8 +34,7 @@
         "stc/extra/script.js": "public/static/extra/script.js"
       },
       "remove": [
-        "stc",
-        "readme.md"
+        "stc"
       ]
     }
   },
