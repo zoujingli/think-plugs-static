@@ -14,6 +14,7 @@
   },
   "extra": {
     "plugin": {
+      "path": "vendor/zoujingli/think-plugs-info-static",
       "copy": {
         "stc/think": "think",
         "stc/public": "public"
