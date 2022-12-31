@@ -17,6 +17,8 @@
       "path": "vendor/zoujingli/think-plugs-info-static",
       "copy": {
         "stc/think": "think",
+        "stc/public/index.php": "public/index.php",
+        "stc/public/router.php": "public/router.php",
         "stc/public/static/plugs": "!public/static/plugs",
         "stc/public/static/theme": "!public/static/theme",
         "stc/public/static/admin.js": "public/static/admin.js",
@@ -35,7 +37,8 @@
         "stc/config/view.php": "config/view.php",
         "stc/Index.php": "app/index/controller/Index.php",
         "stc/extra/style.css": "public/static/extra/style.css",
-        "stc/extra/script.js": "public/static/extra/script.js"
+        "stc/extra/script.js": "public/static/extra/script.js",
+        "stc/public/robots.txt": "public/robots.txt"
       },
       "remove": [
         "stc"
