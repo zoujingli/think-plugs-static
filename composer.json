@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "zoujingli/think-plugs-installer": "^1.0"
+    "zoujingli/think-installer": "^1.0"
   },
   "extra": {
     "plugin": {
