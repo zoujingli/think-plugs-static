@@ -14,7 +14,6 @@
   },
   "extra": {
     "plugin": {
-      "path": "vendor/zoujingli/think-plugs-info-static",
       "copy": {
         "stc/think": "!think",
         "stc/public/index.php": "!public/index.php",
@@ -40,9 +39,7 @@
         "stc/extra/script.js": "public/static/extra/script.js",
         "stc/public/robots.txt": "public/robots.txt"
       },
-      "remove": [
-        "stc"
-      ]
+      "clear": true
     }
   },
   "config": {
