@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "zoujingli/think-installer": "^1.0"
+    "zoujingli/think-install": "^1.0"
   },
   "extra": {
     "plugin": {
@@ -44,7 +44,7 @@
   },
   "config": {
     "allow-plugins": {
-      "zoujingli/think-installer": true
+      "zoujingli/think-install": true
     }
   }
 }
