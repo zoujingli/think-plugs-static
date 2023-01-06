@@ -2,11 +2,11 @@
 
 #### 介绍
 
-基于 ThinkAdmin 的静态文件及初始化组件。
+用于支持 ThinkAdmin 后端及部分初始化文件的`Composer`组件。
 
 目前代码主仓库放在`Gitee`,`Github`仅为镜像仓库用于发布`Composer`包。
 
-安装时会替换`public/static`目录，因此要注意是否有对`public/static`进行修改，如果有修改我们不建议安装此模块！
+安装时会替换`public/static`目录（自定义脚本和样式`public/static/extra`目录除外），因此要注意是否有对`public/static`进行修改，如果有修改我们不建议安装此模块，自定义脚本和样式可以放置于`public/static/extra`，更新时此目录不会被替换！
 
 由于`layui 2.8`未正式发布，所以这里只用了`rc`版本，待其正式发布之后我们也会相应发布上线。
 
