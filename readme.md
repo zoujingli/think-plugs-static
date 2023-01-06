@@ -2,7 +2,7 @@
 
 #### 介绍
 
-用于支持 ThinkAdmin 后端及部分初始化文件的`Composer`组件。
+用于支持 ThinkAdmin 后端的脚本样式及部分项目初始化文件。
 
 目前代码主仓库放在`Gitee`,`Github`仅为镜像仓库用于发布`Composer`包。
 
