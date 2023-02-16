@@ -1025,7 +1025,7 @@ $(function () {
         var area = emap.area || [emap.width || '800px', emap.height || '580px'];
         var frame = emap.iframe + (emap.iframe.indexOf('?') > -1 ? '&' : '?') + $.param(data);
         return applyRuleValue(this, data, function () {
-            $(this).attr('data-index', $.form.iframe(frame, name, area, emap.offset || 'auto', function () {
+            $(this).attr('data-index', $.form.iframe(frame + '&' + $.param(data), name, area, emap.offset || 'auto', function () {
                 typeof emap.refresh !== 'undefined' && $.layTable.reload(emap.tableId || true);
             }, undefined, emap.full !== undefined));
         })
