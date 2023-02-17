@@ -153,7 +153,11 @@ $(function () {
         this.idx = [];
         this.mdx = [];
         this.shade = [0.02, '#000000'];
-        /*! 关闭最新窗口 */
+        /*! 关闭元素所在窗口 */
+        this.closeThisModal = function (element) {
+            layer.close($(element).parents('div.layui-layer-page').attr('times'));
+        };
+        /*! 关闭顶层最新窗口 */
         this.closeLastModal = function () {
             while ($.msg.mdx.length > 0 && (this.tdx = $.msg.mdx.pop()) > 0) {
                 if ($('#layui-layer' + this.tdx).size()) return layer.close(this.tdx);
