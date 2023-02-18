@@ -3,7 +3,8 @@
 [![Latest Stable Version](https://poser.pugx.org/zoujingli/think-plugs-static/v/stable)](https://packagist.org/packages/zoujingli/think-plugs-static)
 [![Latest Unstable Version](https://poser.pugx.org/zoujingli/think-plugs-static/v/unstable)](https://packagist.org/packages/zoujingli/think-plugs-static)
 [![Total Downloads](https://poser.pugx.org/zoujingli/think-plugs-static/downloads)](https://packagist.org/packages/zoujingli/think-plugs-static)
-[![Monthly Downloads](http://img.shields.io/packagist/dm/zoujingli/think-plugs-static.svg)](https://packagist.org/packages/zoujingli/think-plugs-static)
+[![Monthly Downloads](https://poser.pugx.org/zoujingli/think-plugs-static/d/monthly)](https://packagist.org/packages/zoujingli/think-plugs-static)
+[![Daily Downloads](https://poser.pugx.org/zoujingli/think-plugs-static/d/daily)](https://packagist.org/packages/zoujingli/think-plugs-static)
 [![License](https://poser.pugx.org/zoujingli/think-plugs-static/license)](https://packagist.org/packages/zoujingli/think-plugs-static)
 
 **ThinkAdmin** 后台 **UI** 框架及部分系统初始化文件，开源免费可商用！
