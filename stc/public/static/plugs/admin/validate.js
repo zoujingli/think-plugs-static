@@ -50,11 +50,11 @@ define(function () {
             var type = (ele.getAttribute('type') || '').replace(/\W+/, '').toLowerCase();
             if ($.inArray(type, ['file', 'reset', 'image', 'radio', 'checkbox', 'submit', 'hidden']) > -1) return true;
             if (this.hasProp(ele, 'required') && $.trim($(ele).val()) === '') return this.remind(ele, 'required');
-            return this.isRegex(ele) ? !!this.hideError(ele) : this.remind(ele);
+            return this.isRegex(ele) ? !!this.hideError(ele) : this.remind(ele, 'pattern');
         };
         this.remind = function (ele, type, message) {
             if (!$(ele).is(':visible')) return true;
-            message = message || ele.getAttribute('error-' + (type || 'message'));
+            message = message || ele.getAttribute((type || 'message') + '-error');
             if (type === 'required') message = message || '内容不能为空';
             return this.showError(ele, message || ele.getAttribute('title') || ele.getAttribute('placeholder') || '输入格式错误') , false;
         };
