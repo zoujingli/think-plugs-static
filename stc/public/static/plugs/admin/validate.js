@@ -54,7 +54,7 @@ define(function () {
         };
         this.remind = function (ele, type, message) {
             if (!$(ele).is(':visible')) return true;
-            message = message || ele.getAttribute((type || 'message') + '-error');
+            message = message || ele.getAttribute((type || 'pattern') + '-error');
             if (type === 'required') message = message || '内容不能为空';
             return this.showError(ele, message || ele.getAttribute('title') || ele.getAttribute('placeholder') || '输入格式错误') , false;
         };
