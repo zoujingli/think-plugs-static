@@ -9,9 +9,9 @@
 
 **ThinkAdmin** 后台 **UI** 框架及部分系统初始化文件，开源免费可商用！
 
-代码主仓库放在`Gitee`，`Github`仅为镜像仓库用于发布`Composer`包。
+代码主仓库放在 **Gitee**，**Github** 仅为镜像仓库用于发布 **Composer** 包。
 
-安装此插件会占用并替换`public/static`部分目录（自定义脚本和样式`public/static/extra`目录除外），若有对 `public/static` 修改不建议安装此插件，否则会造成修改的内容丢失！
+安装此插件会占用并替换 `public/static` 部分目录（自定义脚本和样式 `public/static/extra` 目录除外），若有对 `public/static` 修改不建议安装此插件，否则会造成修改的内容丢失！
 
 使用 `Composer` 卸载此插件时，不会自动删除或还原 `public/static` 目录，需要手动删除目录和系统初始化文件。
 
