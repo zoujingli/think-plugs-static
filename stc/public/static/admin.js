@@ -29,12 +29,13 @@ require.config({
     baseUrl: baseRoot, waitSeconds: 60,
     map: {'*': {css: baseRoot + 'plugs/require/css.js'}},
     paths: {
-        // ------ 自定义 ------
+        // ---------- 自定义 ----------
         'excel': ['plugs/admin/excel'],
         'queue': ['plugs/admin/queue'],
         'upload': [tapiRoot + '/api.upload/index?'],
+        'validate': ['plugs/admin/validate'],
         'pcasunzips': ['plugs/jquery/pcasunzips'],
-        // ------ 开源库 ------
+        // ---------- 开源库 ----------
         'vue': ['plugs/vue/vue.min'],
         'md5': ['plugs/jquery/md5.min'],
         'json': ['plugs/jquery/json.min'],
@@ -83,7 +84,9 @@ define('ckeditor', (function (type) {
     return ckeditor;
 });
 
-$(function () {
+/*! 注册 ThinkAdmin 组件 */
+define('ThinkAdmin', function (require) {
+
     window.$body = $('body');
 
     /*! 注册单次事件 */
@@ -462,87 +465,7 @@ $(function () {
 
     /*! 表单验证组件 */
     $.vali = function (form, callable) {
-        return $(form).data('validate') || new Validate();
-
-        function Validate() {
-            var that = this;
-            /* 绑定表单元素 */
-            this.form = $(form);
-            /* 绑定元素事件, 筛选表单元素 */
-            this.evts = 'blur change';
-            this.tags = 'input,textarea';
-            /* 预设检测规则 */
-            this.patterns = {
-                phone: '^1[3-9][0-9]{9}$',
-                email: '^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$'
-            };
-            /*! 检测属性是否有定义 */
-            this.hasProp = function (ele, prop) {
-                var attrProp = ele.getAttribute(prop);
-                return typeof attrProp !== 'undefined' && attrProp !== null && attrProp !== false;
-            }, this.isRegex = function (ele) {
-                var real = $.trim($(ele).val());
-                var regexp = ele.getAttribute('pattern');
-                regexp = this.patterns[regexp] || regexp;
-                if (real === "" || !regexp) return true;
-                return new RegExp(regexp, 'i').test(real);
-            }, this.checkAllInput = function () {
-                var status = true;
-                return that.form.find(this.tags).each(function () {
-                    if (that.checkInput(this) === false) return $(this).focus(), status = false;
-                }), status;
-            }, this.checkInput = function (input) {
-                if (this.hasProp(input, 'data-auto-none')) return true;
-                var type = (input.getAttribute('type') || '').replace(/\W+/, "").toLowerCase();
-                var ingores = ['file', 'reset', 'image', 'radio', 'checkbox', 'submit', 'hidden'];
-                if (ingores.length > 0) for (var i in ingores) if (type === ingores[i]) return true;
-                if (this.hasProp(input, 'required') && $.trim($(input).val()) === '') return this.remind(input);
-                return this.isRegex(input) ? (this.hideError(input), true) : this.remind(input);
-            }, this.remind = function (input) {
-                if (!$(input).is(':visible')) return true;
-                return this.showError(input, input.getAttribute('title') || input.getAttribute('placeholder') || '输入错误'), false;
-            }, this.showError = function (ele, tip) {
-                $(ele).addClass('validate-error');
-                this.insertError(ele).addClass('layui-anim-fadein').css({width: 'auto'}).html(tip);
-            }, this.hideError = function (ele) {
-                $(ele).removeClass('validate-error');
-                this.insertError(ele).removeClass('layui-anim-fadein').css({width: '30px'}).html('');
-            }, this.insertError = function (ele) {
-                if ($(ele).data('input-info')) return $(ele).data('input-info');
-                var $html = $('<span class="absolute block layui-anim text-center font-s12 notselect" style="color:#A44;z-index:2"></span>');
-                var $next = $(ele).nextAll('.input-right-icon'), right = ($next ? $next.width() + parseFloat($next.css('right') || '0') : 0) + 10;
-                var style = {top: $(ele).position().top + 'px', right: right + 'px', lineHeight: ele.nodeName === 'TEXTAREA' ? '32px' : $(ele).css('height')};
-                return $(ele).data('input-info', $html.css(style).insertAfter(ele)), $html;
-            };
-            /*! 表单元素验证 */
-            this.form.attr({onsubmit: 'return false', novalidate: 'novalidate', autocomplete: 'off'});
-            this.form.off(this.evts, this.tags).on(this.evts, this.tags, function () {
-                that.checkInput(this);
-            }).data('validate', this).bind('submit', function (event) {
-                event.button = that.form.find('button[type=submit],button:not([type=button])');
-                /* 检查所有表单元素是否通过H5的规则验证 */
-                if (that.checkAllInput() && typeof callable === 'function') {
-                    if (typeof CKEDITOR === 'object' && typeof CKEDITOR.instances === 'object') {
-                        for (var i in CKEDITOR.instances) CKEDITOR.instances[i].updateElement();
-                    }
-                    /* 触发表单提交后，锁定三秒不能再次提交表单 */
-                    if (that.form.attr('submit-locked')) return false;
-                    onConfirm(event.button.attr('data-confirm'), function () {
-                        that.form.attr('submit-locked', 1);
-                        event.button.addClass('submit-button-loading');
-                        callable.call(form, that.form.formToJson(), []);
-                        setTimeout(function () {
-                            that.form.removeAttr('submit-locked');
-                            event.button.removeClass('submit-button-loading');
-                        }, 3000);
-                    });
-                }
-                return event.preventDefault(), false;
-            }).find('[data-form-loaded]').map(function () {
-                $(this).html(this.dataset.formLoaded || this.innerHTML);
-                $(this).removeAttr('data-form-loaded').removeClass('layui-disabled');
-            });
-        }
+        return $(form).data('validate') || new (require('validate'))(form, callable, onConfirm);
     };
 
     /*! 自动监听表单 */
@@ -1069,6 +992,9 @@ $(function () {
         event.target.src = baseRoot + 'theme/img/404_icon.png';
     }, true);
 
-    /*! 系统菜单表单页面初始化 */
+});
+
+/*! 系统菜单表单页面初始化 */
+require(['ThinkAdmin'], function () {
     $.menu.listen() && $.form.reInit($body);
 });
