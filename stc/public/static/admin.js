@@ -29,15 +29,19 @@ require.config({
     baseUrl: baseRoot, waitSeconds: 60,
     map: {'*': {css: baseRoot + 'plugs/require/css.js'}},
     paths: {
+        // ------ 自定义 ------
+        'excel': ['plugs/admin/excel'],
+        'queue': ['plugs/admin/queue'],
+        'upload': [tapiRoot + '/api.upload/index?'],
+        'pcasunzips': ['plugs/jquery/pcasunzips'],
+        // ------ 开源库 ------
         'vue': ['plugs/vue/vue.min'],
         'md5': ['plugs/jquery/md5.min'],
         'json': ['plugs/jquery/json.min'],
         'xlsx': ['plugs/jquery/xlsx.min'],
         'jszip': ['plugs/jquery/jszip.min'],
-        'excel': ['plugs/jquery/excel.xlsx'],
         'marked': ['plugs/jquery/marked.min'],
         'base64': ['plugs/jquery/base64.min'],
-        'upload': [tapiRoot + '/api.upload/index?'],
         'notify': ['plugs/notify/notify.min'],
         'angular': ['plugs/angular/angular.min'],
         'cropper': ['plugs/cropper/cropper.min'],
@@ -46,7 +50,6 @@ require.config({
         'ckeditor5': ['plugs/ckeditor5/ckeditor'],
         'filesaver': ['plugs/jquery/filesaver.min'],
         'websocket': ['plugs/socket/websocket'],
-        'pcasunzips': ['plugs/jquery/pcasunzips'],
         'compressor': ['plugs/jquery/compressor.min'],
         'sortablejs': ['plugs/sortable/sortable.min'],
         'vue.sortable': ['plugs/sortable/vue.draggable.min'],
@@ -325,7 +328,7 @@ $(function () {
         this.goto = function (url) {
             if (typeof url !== 'string' || url.length < 1) return;
             if (url.toLowerCase().indexOf('javascript:') === 0) {
-                return eval(url.split('javascript:', 2)[1]);
+                return eval(url.split(':', 2)[1]);
             } else {
                 return location.href = url;
             }
@@ -416,7 +419,7 @@ $(function () {
                 });
             });
             /*! 监听窗口大小及HASH切换 */
-            $(window).on('resize', function () {
+            return $(window).on('resize', function () {
                 (layui.data('AdminMenuType')['mini'] || $body.width() < 1000) ? layout.addClass(mclass) : layout.removeClass(mclass);
             }).trigger('resize').on('hashchange', function () {
                 if (/^#(https?:)?(\/\/|\\\\)/.test(location.hash)) return $.msg.tips('禁止访问外部链接！');
@@ -848,64 +851,8 @@ $(function () {
 
     /*! 显示任务进度消息 */
     $.loadQueue = function (code, doScript, element) {
-        var doAjax = true, doReload = false, template = '<div class="padding-30 padding-bottom-0" data-queue-load="{{d.code}}"><div class="layui-elip notselect nowrap" data-message-title><b class="color-desc">...</b></div><div class="margin-top-15 layui-progress layui-progress-big" lay-showPercent="yes"><div class="layui-progress-bar transition" lay-percent="0.00%"></div></div>' + '<div class="margin-top-15"><code class="layui-textarea layui-bg-black border-0" style="resize:none;overflow:hidden;height:190px"></code></div></div>';
-        layer.open({
-            type: 1, title: false, area: ['560px', '315px'], anim: 2, shadeClose: false, end: function () {
-                doAjax = doReload && doScript && $.layTable.reload(((element || {}).dataset || {}).tableId || true), false;
-            }, content: laytpl(template).render({code: code}), success: function ($elem) {
-                new function () {
-                    var that = this;
-                    this.$box = $elem.find('[data-queue-load=' + code + ']');
-                    if (doAjax === false || this.$box.length < 1) return false;
-                    this.$coder = this.$box.find('code'), this.$name = this.$box.find('[data-message-title]');
-                    this.$percent = this.$box.find('.layui-progress div'), this.SetCache = function (code, index, value) {
-                        var ckey = code + '_' + index, ctype = 'admin-queue-script';
-                        return value !== undefined ? layui.data(ctype, {key: ckey, value: value}) : layui.data(ctype)[ckey] || 0;
-                    }, this.SetState = function (status, message) {
-                        if (message.indexOf('javascript:') === -1) if (status === 1) {
-                            that.$name.html('<b class="color-text">' + message + '</b>').addClass('text-center');
-                            that.$percent.addClass('layui-bg-blue').removeClass('layui-bg-green layui-bg-red');
-                        } else if (status === 2) {
-                            if (message.indexOf('>>>') > -1) {
-                                that.$name.html('<b class="color-blue">' + message + '</b>').addClass('text-center');
-                            } else {
-                                that.$name.html('<b class="color-blue">正在处理：</b>' + message).removeClass('text-center');
-                            }
-                            that.$percent.addClass('layui-bg-blue').removeClass('layui-bg-green layui-bg-red');
-                        } else if (status === 3) {
-                            doReload = true;
-                            that.$name.html('<b class="color-green">' + message + '</b>').addClass('text-center');
-                            that.$percent.addClass('layui-bg-green').removeClass('layui-bg-blue layui-bg-red');
-                        } else if (status === 4) {
-                            that.$name.html('<b class="color-red">' + message + '</b>').addClass('text-center');
-                            that.$percent.addClass('layui-bg-red').removeClass('layui-bg-blue layui-bg-green');
-                        }
-                    }, (this.LoadProgress = function () {
-                        if (doAjax === false || that.$box.length < 1) return false;
-                        $.form.load(tapiRoot + '/api.queue/progress', {code: code}, 'post', function (ret) {
-                            if (ret.code) {
-                                var lines = [];
-                                for (var idx in ret.data.history) {
-                                    var line = ret.data.history[idx], percent = '[ ' + line.progress + '% ] ';
-                                    if (line.message.indexOf('javascript:') === -1) {
-                                        lines.push(line.message.indexOf('>>>') > -1 ? line.message : percent + line.message);
-                                    } else if (!that.SetCache(code, idx) && doScript !== false) {
-                                        that.SetCache(code, idx, 1), $.form.goto(line.message);
-                                    }
-                                }
-                                if (ret.data.status > 0) {
-                                    that.SetState(parseInt(ret.data.status), ret.data.message);
-                                    that.$percent.attr('lay-percent', (parseFloat(ret.data.progress || '0.00').toFixed(2)) + '%'), layui.element.render();
-                                    that.$coder.html('<p class="layui-elip">' + lines.join('</p><p class="layui-elip">') + '</p>').animate({scrollTop: that.$coder[0].scrollHeight + 'px'}, 200);
-                                    return parseInt(ret.data.status) === 3 || parseInt(ret.data.status) === 4 || setTimeout(that.LoadProgress, Math.floor(Math.random() * 200)), false;
-                                } else {
-                                    return setTimeout(that.LoadProgress, Math.floor(Math.random() * 500) + 200), false;
-                                }
-                            }
-                        }, false);
-                    })();
-                };
-            }
+        require(['queue'], function (method) {
+            method(code, doScript, element);
         });
     };
 
@@ -1123,5 +1070,5 @@ $(function () {
     }, true);
 
     /*! 系统菜单表单页面初始化 */
-    $.menu.listen(), $.form.reInit($body);
+    $.menu.listen() && $.form.reInit($body);
 });
