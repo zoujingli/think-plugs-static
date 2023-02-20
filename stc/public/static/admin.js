@@ -946,7 +946,7 @@ define('ThinkAdmin', function (require) {
     onEvent('mouseenter', '[data-tips-image][data-tips-hover]', function () {
         var img = new Image(), ele = $(this);
         if ((img.src = this.dataset.tipsImage || this.dataset.lazySrc || this.src)) {
-            img.layopt = {time: 0, skin: 'layui-layer-image', anim: 5, isOutAnim: false, scrollbar: false};
+            img.layopt = {anim: 5, time: 0, skin: 'layui-layer-image', isOutAnim: false, scrollbar: false};
             img.referrerPolicy = 'no-referrer', img.style.maxWidth = '260px', img.style.maxHeight = '260px';
             ele.data('layidx', layer.tips(img.outerHTML, this, img.layopt)).off('mouseleave').on('mouseleave', function () {
                 layer.close(ele.data('layidx'));
