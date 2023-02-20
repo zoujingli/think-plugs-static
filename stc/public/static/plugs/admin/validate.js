@@ -60,8 +60,8 @@ define(function () {
         };
         this.remind = function (el, type, tips) {
             return $(el).is(':visible') ? this.showError(el, tips || el.getAttribute(type + '-error') || function (name, tips) {
-                return name ? name + (type === 'required' ? '不能为空' : "格式错误") : (tips || '输入格式错误');
-            }(el.getAttribute('data-vali-name'), el.getAttribute('title') || el.getAttribute('placeholder'))) && false : true;
+                return name ? name + (type === 'required' ? '不能为空' : "格式错误") : (tips || el.getAttribute('placeholder') || '输入格式错误');
+            }(el.getAttribute('vali-name') || el.getAttribute('data-vali-name'), el.getAttribute('title'))) && false : true;
         };
         this.showError = function (el, tip) {
             return this.insertError($(el).addClass('validate-error')).addClass('layui-anim-fadein').css({width: 'auto'}).html(tip);
