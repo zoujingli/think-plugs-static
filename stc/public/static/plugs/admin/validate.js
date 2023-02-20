@@ -77,6 +77,10 @@ define(function () {
             $(el).data('input-info', $html.css(style).insertAfter(el));
             return $html;
         };
+        /*! 预埋异常标签*/
+        this.form.find(this.tags).each(function () {
+            that.hideError(this, '');
+        });
         /*! 表单元素验证 */
         this.form.attr({onsubmit: 'return false', novalidate: 'novalidate', autocomplete: 'off'}).on('keydown', this.tags, function () {
             that.hideError(this)
