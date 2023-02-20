@@ -25,7 +25,13 @@ define(function () {
         // 预设检测规则
         this.patterns = {
             phone: '^1[3-9][0-9]{9}$',
-            email: '^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$'
+            email: '^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$',
+            _qq_: '^[1-9][0-9]{4,11}$',
+            _ip_: '^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$',
+            _url_: '^((https?|ftp|file):\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$',
+            _wechat_: '^[a-zA-Z]([-_a-zA-Z0-9]{5,19})+$',
+            _cardid_: '^[1-9]\\d{5}(18|19|([23]\\d))\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9Xx]$',
+            _userame_: '^[a-zA-Z0-9_-]{4,16}$',
         };
         // 检测属性是否有定义
         this.hasProp = function (el, prop) {
@@ -72,8 +78,9 @@ define(function () {
             return $html;
         };
         /*! 表单元素验证 */
-        this.form.attr({onsubmit: 'return false', novalidate: 'novalidate', autocomplete: 'off'});
-        this.form.off(this.evts, this.tags).on(this.evts, this.tags, function () {
+        this.form.attr({onsubmit: 'return false', novalidate: 'novalidate', autocomplete: 'off'}).on('keydown', this.tags, function () {
+            that.hideError(this)
+        }).off(this.evts, this.tags).on(this.evts, this.tags, function () {
             that.checkInput(this);
         }).data('validate', this).bind('submit', function (event) {
             event.preventDefault();
