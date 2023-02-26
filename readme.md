@@ -15,12 +15,12 @@
 
 使用 `Composer` 卸载此插件时，不会自动删除或还原 `public/static` 目录，需要手动删除目录和系统初始化文件。
 
-由于`layui 2.8`未正式发布，所以这里只用了`rc`版本，待其正式发布之后我们也会相应发布更新版本。
+由于 `layui 2.8` 未正式发布，所以这里只用了 `RC` 版本，待其正式发布之后我们也会相应发布更新版本。
 
 ### 安装插件
 
 ```shell
-#### 注意，此插件仅支持在 ThinkAdmin v6 中使用
+#### 注意，此插件仅支持在 ThinkAdmin v6.1 中使用
 composer require zoujingli/think-plugs-static
 ```
 
