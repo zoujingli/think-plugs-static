@@ -257,9 +257,10 @@ $(function () {
         };
         /*! 内容区域动态加载后初始化 */
         this.reInit = function ($dom) {
+            $dom = $dom || $(this.selecter);
             layui.form.render(), layui.element.render(), $(window).trigger('scroll');
             require(['ThinkAdmin'], function () {
-                $.vali.listen($dom = $dom || $(this.selecter)), $body.trigger('reInit', $dom);
+                $.vali.listen($dom) && $body.trigger('reInit', $dom);
             });
             return $dom.find('[required]').map(function () {
                 this.$parent = $(this).parent();
@@ -752,10 +753,10 @@ $(function () {
         };
 
         /*! 自动监听表单 */
-        $.vali.listen = function ($dom, $els) {
-            $els = $($dom || $body).find('form[data-auto]');
+        $.vali.listen = function ($dom) {
+            var $els = $($dom || $body).find('form[data-auto]');
             $dom && $($dom).filter('form[data-auto]') && $els.add($dom);
-            $els.size() > 0 && $els.map(function (idx, form) {
+            return $els.map(function (idx, form) {
                 $(this).vali(function (data) {
                     var dset = form.dataset, type = form.method || 'POST', href = form.action || location.href;
                     var tips = dset.tips || undefined, time = dset.time || undefined, taid = dset.tableId || false;
