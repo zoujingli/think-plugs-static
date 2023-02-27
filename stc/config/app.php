@@ -31,9 +31,13 @@ return [
     'domain_bind'             => [],
     // 禁止访问（自动多应用模式有效）
     'deny_app_list'           => [],
-    // CORS 自动配置跨域
-    'cors_auto'               => true,
-    // CORS 配置跨域域名
+    // RBAC 登录地址（填写登录地址）
+    'rbac_login'              => '',
+    // RBAC 忽略应用（填写应用名称）
+    'rbac_ignore'             => ['index'],
+    // CORS 启用状态（默认开启跨域）
+    'cors_on'                 => true,
+    // CORS 配置跨域域名（仅需填写域名，留空则自适应域名）
     'cors_host'               => [],
     // CORS 授权请求方法
     'cors_methods'            => 'GET,PUT,POST,PATCH,DELETE',
