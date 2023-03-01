@@ -10,6 +10,7 @@
     }
   ],
   "require": {
+    "php": ">=7.1",
     "zoujingli/think-install": "^1.0||dev-master"
   },
   "extra": {
