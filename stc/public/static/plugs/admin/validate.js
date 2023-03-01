@@ -82,7 +82,7 @@ define(function () {
         this.form.find(this.tags).each(function (i, el) {
             that.needCheck(this) && setTimeout(function () {
                 that.hideError(el, '');
-            }, 500);
+            }, 250);
         });
         /*! 表单元素验证 */
         this.form.attr({onsubmit: 'return false', novalidate: 'novalidate', autocomplete: 'off'}).on('keydown', this.tags, function () {
