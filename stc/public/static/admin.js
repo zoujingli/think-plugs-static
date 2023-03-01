@@ -980,10 +980,10 @@ $(function () {
         });
 
         /*! 表单编辑返回操作 */
-        onEvent('click', '[data-history-back]', function () {
-            $.msg.confirm(this.dataset.historyBack || '确定要返回吗？', function () {
+        onEvent('click', '[data-target-backup],[data-history-back]', function () {
+            onConfirm(this.dataset.historyBack || this.dataset.targetBackup || '确定要返回上个页面吗？', function () {
                 history.back();
-            })
+            });
         });
 
         /*! 图片加载异常处理 */
