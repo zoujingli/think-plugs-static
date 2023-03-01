@@ -976,7 +976,7 @@ $(function () {
 
         /*! 注册 data-target-submit 事件行为 */
         onEvent('click', '[data-target-submit]', function () {
-            $(this.dataset.targetSubmit || this).submit();
+            $(this.dataset.targetSubmit || 'form:last').submit();
         });
 
         /*! 表单编辑返回操作 */
