@@ -874,6 +874,7 @@ $(function () {
             if (this.dataset.open.match(/^https?:/)) {
                 $.form.goto(this.dataset.open);
             } else {
+                layui.sessionData('pages', null);
                 $.form.href(this.dataset.open, this);
             }
         });
