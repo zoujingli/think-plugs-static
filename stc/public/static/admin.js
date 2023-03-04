@@ -871,10 +871,10 @@ $(function () {
 
         /*! 注册 data-open 事件行为 */
         onEvent('click', '[data-open]', function () {
+            layui.sessionData('pages', null);
             if (this.dataset.open.match(/^https?:/)) {
                 $.form.goto(this.dataset.open);
             } else {
-                layui.sessionData('pages', null);
                 $.form.href(this.dataset.open, this);
             }
         });
