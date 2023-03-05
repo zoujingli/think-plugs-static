@@ -14,7 +14,7 @@
 
 define(function () {
 
-    return function (form, callable, onConfirm) {
+    return function (form, done, init, onConfirm) {
         var that = this;
         // 绑定表单元素
         this.form = $(form);
@@ -85,28 +85,27 @@ define(function () {
             }, 250);
         });
         /*! 表单元素验证 */
+        typeof init === 'function' && init(this);
         this.form.attr({onsubmit: 'return false', novalidate: 'novalidate', autocomplete: 'off'}).on('keydown', this.tags, function () {
             that.hideError(this)
         }).off(this.evts, this.tags).on(this.evts, this.tags, function () {
             that.checkInput(this);
-        }).data('validate', this).bind('submit', function (event) {
-            event.preventDefault();
+        }).data('validate', this).bind('submit', function (evt) {
+            evt.preventDefault();
             /* 检查所有表单元素是否通过H5的规则验证 */
-            if (that.checkAllInput() && typeof callable === 'function') {
+            if (that.checkAllInput() && typeof done === 'function') {
                 if (typeof CKEDITOR === 'object' && typeof CKEDITOR.instances === 'object') {
                     for (var i in CKEDITOR.instances) CKEDITOR.instances[i].updateElement();
                 }
                 /* 触发表单提交后，锁定三秒不能再次提交表单 */
                 if (that.form.attr('submit-locked')) return false;
-                var submit = that.form.find('button[type=submit],button:not([type=button])');
-                onConfirm(submit.attr('data-confirm'), function () {
-                    that.form.attr('submit-locked', 1);
-                    submit.addClass('submit-button-loading');
-                    callable.call(form, that.form.formToJson(), []);
+                evt.submit = that.form.find('button[type=submit],button:not([type=button])');
+                onConfirm(evt.submit.attr('data-confirm'), function () {
+                    that.form.attr('submit-locked', 1) && evt.submit.addClass('submit-button-loading');
                     setTimeout(function () {
                         that.form.removeAttr('submit-locked');
-                        submit.removeClass('submit-button-loading');
-                    }, 3000);
+                        evt.submit.removeClass('submit-button-loading');
+                    }, 3000) && done.call(form, that.form.formToJson(), []);
                 });
             }
         }).find('[data-form-loaded]').map(function () {
