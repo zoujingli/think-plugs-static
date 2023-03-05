@@ -14,7 +14,7 @@
 
 define(function () {
 
-    return function (form, done, init, onConfirm) {
+    return function (form, onConfirm) {
         var that = this;
         // 绑定表单元素
         this.form = $(form);
@@ -22,6 +22,8 @@ define(function () {
         this.evts = 'blur change';
         // 检测表单元素
         this.tags = 'input,textarea';
+        // 验证成功回调
+        this.dones = [];
         // 预设检测规则
         this.patterns = {
             qq: '^[1-9][0-9]{4,11}$',
@@ -32,6 +34,10 @@ define(function () {
             wechat: '^[a-zA-Z]([-_a-zA-Z0-9]{5,19})+$',
             cardid: '^[1-9]\\d{5}(18|19|([23]\\d))\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9Xx]$',
             userame: '^[a-zA-Z0-9_-]{4,16}$',
+        };
+        // 设置完成回调
+        this.addDoneEvent = function (done) {
+            if (typeof done === 'function') this.dones.push(done);
         };
         this.isRegex = function (el, value, pattern) {
             pattern = pattern || el.getAttribute('pattern');
@@ -85,7 +91,6 @@ define(function () {
             }, 250);
         });
         /*! 表单元素验证 */
-        typeof init === 'function' && init.call(form, this);
         this.form.attr({onsubmit: 'return false', novalidate: 'novalidate', autocomplete: 'off'}).on('keydown', this.tags, function () {
             that.hideError(this)
         }).off(this.evts, this.tags).on(this.evts, this.tags, function () {
@@ -93,7 +98,7 @@ define(function () {
         }).data('validate', this).bind('submit', function (evt) {
             evt.preventDefault();
             /* 检查所有表单元素是否通过H5的规则验证 */
-            if (that.checkAllInput() && typeof done === 'function') {
+            if (that.checkAllInput() && that.dones.length > 0) {
                 if (typeof CKEDITOR === 'object' && typeof CKEDITOR.instances === 'object') {
                     for (var i in CKEDITOR.instances) CKEDITOR.instances[i].updateElement();
                 }
@@ -103,9 +108,10 @@ define(function () {
                 onConfirm(evt.submit.attr('data-confirm'), function () {
                     that.form.attr('submit-locked', 1) && evt.submit.addClass('submit-button-loading');
                     setTimeout(function () {
-                        that.form.removeAttr('submit-locked');
-                        evt.submit.removeClass('submit-button-loading');
-                    }, 3000) && done.call(form, that.form.formToJson(), []);
+                        that.form.removeAttr('submit-locked') && evt.submit.removeClass('submit-button-loading');
+                    }, 3000) && that.dones.forEach(function (done) {
+                        done.call(form, that.form.formToJson(), []);
+                    });
                 });
             }
         }).find('[data-form-loaded]').map(function () {
