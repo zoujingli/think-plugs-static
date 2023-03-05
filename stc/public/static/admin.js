@@ -257,9 +257,8 @@ $(function () {
         };
         /*! 内容区域动态加载后初始化 */
         this.reInit = function ($dom) {
-            $dom = $dom || $(this.selecter);
             layui.form.render() && layui.element.render() && $(window).trigger('scroll');
-            $.vali.listen($dom) && $body.trigger('reInit', $dom);
+            $.vali.listen($dom = $dom || $(this.selecter)) && $body.trigger('reInit', $dom);
             return $dom.find('[required]').map(function () {
                 this.$parent = $(this).parent();
                 if (this.$parent.is('label')) this.$parent.addClass('label-required-prev'); else this.$parent.prevAll('label.layui-form-label').addClass('label-required-next');
