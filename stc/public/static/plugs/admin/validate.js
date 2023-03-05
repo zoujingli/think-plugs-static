@@ -85,7 +85,7 @@ define(function () {
             }, 250);
         });
         /*! 表单元素验证 */
-        typeof init === 'function' && init(this);
+        typeof init === 'function' && init.call(form, this);
         this.form.attr({onsubmit: 'return false', novalidate: 'novalidate', autocomplete: 'off'}).on('keydown', this.tags, function () {
             that.hideError(this)
         }).off(this.evts, this.tags).on(this.evts, this.tags, function () {
