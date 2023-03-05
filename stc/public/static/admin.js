@@ -257,10 +257,8 @@ $(function () {
         };
         /*! 内容区域动态加载后初始化 */
         this.reInit = function ($dom) {
-            layui.form.render();
-            layui.element.render();
-            $(window).trigger('scroll');
             $dom = $dom || $(this.selecter);
+            layui.form.render() && layui.element.render() && $(window).trigger('scroll');
             $.vali.listen($dom) && $body.trigger('reInit', $dom);
             return $dom.find('[required]').map(function () {
                 this.$parent = $(this).parent();
@@ -756,6 +754,7 @@ $(function () {
     /*! 创建表单验证 */
     $.vali = function (form, done, init) {
         require(['validate'], function (Validate) {
+            /** @type {Validate|*} */
             form.validate = $(form).data('validate') || new Validate(form, onConfirm);
             typeof init === 'function' && init.call(form, form.validate);
             typeof done === 'function' && form.validate.addDoneEvent(done);

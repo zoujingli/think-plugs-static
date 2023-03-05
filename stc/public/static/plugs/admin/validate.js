@@ -49,7 +49,7 @@ define(function () {
             var attrProp = el.getAttribute(prop);
             return typeof attrProp !== 'undefined' && attrProp !== null && attrProp !== false;
         };
-        this.needCheck = function (el, type) {
+        this.hasCheck = function (el, type) {
             if (this.hasProp(el, 'data-auto-none')) return false;
             type = (el.getAttribute('type') || '').replace(/\W+/, '').toLowerCase();
             return $.inArray(type, ['file', 'reset', 'image', 'radio', 'checkbox', 'submit', 'hidden']) < 0;
@@ -61,7 +61,7 @@ define(function () {
             }) && status;
         };
         this.checkInput = function (el) {
-            if (!this.needCheck(el)) return true;
+            if (!this.hasCheck(el = typeof el === 'string' ? form[el] : el)) return true;
             if (this.hasProp(el, 'required') && $.trim($(el).val()) === '') return this.remind(el, 'required');
             return this.isRegex(el) ? !!this.hideError(el) : this.remind(el, 'pattern');
         };
@@ -86,7 +86,7 @@ define(function () {
         };
         /*! 预埋异常标签*/
         this.form.find(this.tags).each(function (i, el) {
-            that.needCheck(this) && setTimeout(function () {
+            that.hasCheck(this) && setTimeout(function () {
                 that.hideError(el, '');
             }, 250);
         });
