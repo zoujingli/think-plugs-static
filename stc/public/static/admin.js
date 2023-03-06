@@ -753,10 +753,10 @@ $(function () {
     /*! 创建表单验证 */
     $.vali = function (form, done, init) {
         require(['validate'], function (Validate) {
-            /** @type {Validate|*} */
-            form.validate = $(form).data('validate') || new Validate(form, onConfirm);
-            typeof init === 'function' && init.call(form, form.validate);
-            typeof done === 'function' && form.validate.addDoneEvent(done);
+            /** @type {import("./plugs/admin/validate")|Validate} */
+            var vali = $(form).data('validate') || new Validate(form, onConfirm);
+            init === 'function' && init.call(form, vali, $(form).formToJson());
+            typeof done === 'function' && vali.addDoneEvent(done);
         });
     };
 

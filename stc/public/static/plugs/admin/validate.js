@@ -14,7 +14,9 @@
 
 define(function () {
 
-    return function (form, onConfirm) {
+    return Validate;
+
+    function Validate(form, onConfirm) {
         var that = this;
         // 绑定表单元素
         this.form = $(form);
