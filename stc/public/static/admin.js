@@ -755,7 +755,7 @@ $(function () {
         require(['validate'], function (Validate) {
             /** @type {import("./plugs/admin/validate")|Validate} */
             var vali = $(form).data('validate') || new Validate(form, onConfirm);
-            typeof init === 'function' && init.call(form, vali, $(form).formToJson());
+            typeof init === 'function' && init.call(vali, $(form).formToJson());
             typeof done === 'function' && vali.addDoneEvent(done);
         });
     };
