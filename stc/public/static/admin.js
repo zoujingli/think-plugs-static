@@ -61,7 +61,7 @@ require.config({
     }, shim: {
         'jszip': {deps: ['filesaver']},
         'excel': {deps: [baseRoot + 'plugs/layui_exts/excel.js']},
-        'notify': {deps: ['css!' + baseRoot + 'plugs/notify/light.css']},
+        'notify': {deps: ['css!' + baseRoot + 'plugs/notify/theme.css']},
         'cropper': {deps: ['css!' + baseRoot + 'plugs/cropper/cropper.min.css']},
         'websocket': {deps: [baseRoot + 'plugs/socket/swfobject.js']},
         'ckeditor5': {deps: ['jquery', 'upload', 'css!' + baseRoot + 'plugs/ckeditor5/ckeditor.css']},
@@ -572,22 +572,21 @@ $(function () {
             var $this = $(this), tags = this.value ? this.value.split(',') : [];
             var $text = $('<textarea class="layui-input layui-input-inline layui-tag-input"></textarea>');
             var $tags = $('<div class="layui-tags"></div>').append($text);
-            $this.parent().append($tags), $text.off('keydown blur'), (tags.length > 0 && showTags(tags));
+            $this.parent().append($tags) && $text.off('keydown blur') && (tags.length > 0 && showTags(tags));
             $text.on('blur keydown', function (event, value) {
                 if (event.keyCode === 13 || event.type === 'blur') {
                     event.preventDefault(), (value = $text.val().replace(/^\s*|\s*$/g, ''));
-                    if (tags.indexOf($(this).val()) > -1) return layer.msg('该标签已经存在！');
-                    if (value.length > 0) tags.push(value), $this.val(tags.join(',')), showTags([value]), this.focus(), $text.val('');
+                    if (tags.indexOf($(this).val()) > -1) return $.msg.notify('温馨提示', '该标签已经存在！', 3000, {type: 'error', width: 280});
+                    else if (value.length > 0) tags.push(value), $this.val(tags.join(',')), showTags([value]), this.focus(), $text.val('');
                 }
             });
 
             function showTags(tagsArr) {
-                $(tagsArr).each(function (idx, text, elem) {
-                    elem = $('<div class="layui-tag"></div>').html(text + '<i class="layui-icon">&#x1006;</i>');
-                    elem.on('click', 'i', function (tagText, tagIdx) {
-                        tagText = $(this).parent().text(), tagIdx = tags.indexOf(tagText);
-                        tags.splice(tagIdx, 1), $(this).parent().remove(), $this.val(tags.join(','));
-                    }), $tags.append(elem, $text);
+                $(tagsArr).each(function (idx, text) {
+                    $('<div class="layui-tag"></div>').data('value', text).on('click', 'i', function () {
+                        tags.splice(tags.indexOf($(this).parent().data('value')), 1);
+                        $this.val(tags.join(',')) && $(this).parent().remove();
+                    }).insertBefore($text).html(text + '<i class="layui-icon">&#x1006;</i>');
                 });
             }
         });
