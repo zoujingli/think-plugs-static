@@ -203,7 +203,7 @@ $(function () {
         // https://www.jq22.com/demo/jquerygrowl-notification202104021049
         this.notify = function (title, message, time, option) {
             require(['notify'], function (Notify) {
-                Notify.notify(Object.assign({title: title || '', description: message || '', position: 'top-right', closeTimeout: time || 3000}, (option || {})));
+                Notify.notify(Object.assign({title: title || '', description: message || '', position: 'top-right', closeTimeout: time || 3000, width: '400px'}, option || {}));
             });
         };
         /*! 页面加载层 */
@@ -752,9 +752,9 @@ $(function () {
     /*! 创建表单验证 */
     $.vali = function (form, done, init) {
         require(['validate'], function (Validate) {
-            /** @type {import("./plugs/admin/validate")|Validate} */
+            /** @type {import("./plugs/admin/validate")|Validate}*/
             var vali = $(form).data('validate') || new Validate(form, onConfirm);
-            typeof init === 'function' && init.call(vali, $(form).formToJson());
+            typeof init === 'function' && init.call(vali, $(form).formToJson(), vali);
             typeof done === 'function' && vali.addDoneEvent(done);
         });
     };
