@@ -23,6 +23,7 @@ layui.config({base: baseRoot + 'plugs/layui_exts/'});
 window.form = layui.form, window.layer = layui.layer;
 window.laytpl = layui.laytpl, window.laydate = layui.laydate;
 window.jQuery = window.$ = window.jQuery || window.$ || layui.$;
+window.jQuery.ajaxSetup({xhrFields: {withCredentials: true}});
 
 /*! 配置 require 参数  */
 require.config({
@@ -73,7 +74,6 @@ require.config({
 
 /*! 注册 jquery 组件 */
 define('jquery', [], function () {
-    layui.$.ajaxSetup({xhrFields: {withCredentials: true}});
     return layui.$;
 });
 
