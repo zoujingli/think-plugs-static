@@ -73,6 +73,7 @@ require.config({
 
 /*! 注册 jquery 组件 */
 define('jquery', [], function () {
+    layui.$.ajaxSetup({xhrFields: {withCredentials: true}});
     return layui.$;
 });
 
