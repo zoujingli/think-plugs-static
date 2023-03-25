@@ -1129,11 +1129,22 @@ input:not(.layui-hide,[type=hidden]) {
       color: #fff;
       padding: 15px 25px;
       position: relative;
-      line-height: 3em;
       box-shadow: @ShadowOuterMax;
+      line-height: 3em;
       border-radius: @BoxBorderRadius;
 
-      > div:nth-child(2) {
+      &-unit {
+        position: absolute;
+        font-size: 12px;
+        margin-top: 10px;
+        margin-left: 10px
+      }
+
+      > div:nth-child(1), &-title {
+        font-size: 16px;
+      }
+
+      > div:nth-child(2), &-number {
         font-size: 46px;
         line-height: 46px;
       }
