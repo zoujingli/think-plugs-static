@@ -951,10 +951,10 @@ input:not(.layui-hide,[type=hidden]) {
 
 .submit-button-loading {
   cursor: default;
+  overflow: hidden;
   position: relative;
   transform: scale(1);
   text-align: center;
-  overflow: hidden;
 
   &::before {
     top: 0;
@@ -1131,22 +1131,30 @@ input:not(.layui-hide,[type=hidden]) {
       position: relative;
       box-shadow: @ShadowOuterMax;
       line-height: 3em;
+      text-shadow: 1px 1px 2px rgba(50, 50, 50, 0.8);
       border-radius: @BoxBorderRadius;
+      #notSelect();
 
       &-unit {
+        display: inline;
         position: absolute;
         font-size: 12px;
         margin-top: 10px;
-        margin-left: 10px
+        margin-left: 10px;
       }
 
-      > div:nth-child(1), &-title {
+      > div:nth-child(1), &-name {
         font-size: 16px;
       }
 
-      > div:nth-child(2), &-number {
+      > div:nth-child(2), &-numb {
+        display: inline;
         font-size: 46px;
         line-height: 46px;
+      }
+
+      &-desc {
+        font-size: 13px;
       }
     }
   }
