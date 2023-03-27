@@ -20,9 +20,9 @@ define(function () {
     return Queue;
 
     function Queue(code, doScript, element) {
-        layer.open({
+        (doAjax = true) && layer.open({
             type: 1, title: false, area: ['560px', '315px'], anim: 2, shadeClose: false, end: function () {
-                doAjax = doReload && doScript && $.layTable.reload(((element || {}).dataset || {}).tableId || true)
+                doAjax = doReload && doScript && $.layTable.reload(((element || {}).dataset || {}).tableId || true) && false;
             }, content: laytpl(template).render({code: code}), success: function ($elem) {
                 new Progress($elem, code, doScript);
             }
