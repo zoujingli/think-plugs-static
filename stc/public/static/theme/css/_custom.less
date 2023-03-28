@@ -1135,22 +1135,23 @@ input:not(.layui-hide,[type=hidden]) {
       border-radius: @BoxBorderRadius;
       #notSelect();
 
-      &-unit {
-        display: inline;
-        position: absolute;
-        font-size: 12px;
-        margin-top: 10px;
-        margin-left: 10px;
-      }
-
       > div:nth-child(1), &-name {
         font-size: 16px;
+        font-weight: bold;
       }
 
       > div:nth-child(2), &-numb {
         display: inline;
         font-size: 46px;
         line-height: 46px;
+      }
+
+      &-unit {
+        display: inline;
+        position: absolute;
+        font-size: 12px;
+        margin-top: 10px;
+        margin-left: 10px;
       }
 
       &-desc {

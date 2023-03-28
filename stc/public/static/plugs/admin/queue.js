@@ -19,7 +19,7 @@ define(function () {
     return Queue;
 
     function Queue(code, doScript, element) {
-        var queue = this;
+        let queue = this;
         (this.doAjax = true) && (this.doReload = false) || layer.open({
             type: 1, title: false, area: ['560px', '315px'], anim: 2, shadeClose: false, end: function () {
                 queue.doAjax = queue.doReload && doScript && $.layTable.reload(((element || {}).dataset || {}).tableId || true) && false;

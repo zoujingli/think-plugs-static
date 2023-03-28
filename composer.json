@@ -16,15 +16,14 @@
   "extra": {
     "plugin": {
       "copy": {
-        "stc/think": "!think",
-        "stc/public/index.php": "!public/index.php",
-        "stc/public/router.php": "!public/router.php",
         "stc/public/static/plugs": "!public/static/plugs",
         "stc/public/static/theme": "!public/static/theme",
         "stc/public/static/admin.js": "!public/static/admin.js",
         "stc/public/static/login.js": "!public/static/login.js"
       },
       "init": {
+        "stc/think": "think",
+        "stc/class/Index.php": "app/index/controller/Index.php",
         "stc/config/app.php": "config/app.php",
         "stc/config/cache.php": "config/cache.php",
         "stc/config/cookie.php": "config/cookie.php",
@@ -35,9 +34,10 @@
         "stc/config/route.php": "config/route.php",
         "stc/config/session.php": "config/session.php",
         "stc/config/view.php": "config/view.php",
-        "stc/Index.php": "app/index/controller/Index.php",
-        "stc/public/.htaccess": "public/.htaccess",
+        "stc/public/index.php": "public/index.php",
+        "stc/public/router.php": "public/router.php",
         "stc/public/robots.txt": "public/robots.txt",
+        "stc/public/.htaccess": "public/.htaccess",
         "stc/public/static/extra/style.css": "public/static/extra/style.css",
         "stc/public/static/extra/script.js": "public/static/extra/script.js"
       },
