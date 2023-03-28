@@ -16,10 +16,10 @@
   "extra": {
     "plugin": {
       "copy": {
-        "stc/public/static/plugs": "!public/static/plugs",
-        "stc/public/static/theme": "!public/static/theme",
         "stc/public/static/admin.js": "!public/static/admin.js",
-        "stc/public/static/login.js": "!public/static/login.js"
+        "stc/public/static/login.js": "!public/static/login.js",
+        "stc/public/static/plugs": "!public/static/plugs",
+        "stc/public/static/theme": "!public/static/theme"
       },
       "init": {
         "stc/think": "think",
