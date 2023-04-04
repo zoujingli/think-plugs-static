@@ -911,7 +911,7 @@ $(function () {
 
     /*! 注册 data-video-player 事件行为 */
     onEvent('click', '[data-video-player]', function () {
-        let idx = $.msg.loading(), url = this.dataset.videoPayer, name = this.dataset.title || '媒体播放器', payer;
+        let idx = $.msg.loading(), url = this.dataset.videoPlayer, name = this.dataset.title || '媒体播放器', payer;
         require(['artplayer'], function () {
             layer.open({
                 title: name, type: 1, fixed: true, maxmin: false, content: '<div class="data-play-video" style="width:800px;height:450px"></div>',
