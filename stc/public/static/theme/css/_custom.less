@@ -1174,6 +1174,21 @@ label.think-checkbox {
   cursor: pointer;
   display: inline-block;
   margin: 8px 10px 8px 6px;
+
+  &[data-width] {
+    width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &[data-width^="150"] {
+    width: 150px;
+  }
+
+  &[data-width^="200"] {
+    width: 200px;
+  }
 }
 
 .think-radio,
