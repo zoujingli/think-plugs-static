@@ -15,8 +15,57 @@
 // | github 代码仓库：https://github.com/zoujingli/think-plugs-static
 // +----------------------------------------------------------------------
 
+// 新样式
+// .flex-x
+// .flex-x-center
+// .flex-y
+// .flex-y-center
+// .flex-center
+// .flex-between
+
 .flex {
   #flex();
+
+  each(range(5), {
+    &-@{value} {
+      flex: @value;
+    }
+  });
+
+  &-x {
+    #flex();
+    height: 100%;
+    #flexDirection(row);
+
+    &-center {
+      #flex();
+      height: 100%;
+      #flexAlign(center)
+    }
+  }
+
+  &-y {
+    #flex();
+    width: 100%;
+    #flexDirection(column);
+
+    &-center {
+      #flex();
+      width: 100%;
+      #flexJustify(center);
+    }
+  }
+
+  &-center {
+    #flex();
+    #flexAlign(center);
+    #flexJustify(center);
+  }
+
+  &-between {
+    #flex();
+    justify-content: space-between;
+  }
 
   &-inline {
     display: inline-flex;
@@ -95,26 +144,6 @@
         #flexJustify(space-evenly);
       }
     }
-  }
-
-  &-1 {
-    flex: 1;
-  }
-
-  &-2 {
-    flex: 2;
-  }
-
-  &-3 {
-    flex: 3;
-  }
-
-  &-4 {
-    flex: 4;
-  }
-
-  &-5 {
-    flex: 5;
   }
 }
 
