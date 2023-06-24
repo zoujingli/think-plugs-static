@@ -857,10 +857,10 @@ $(function () {
     /*! 表单元素失去焦点时数字 */
     $.base.onEvent('blur', '[data-blur-number]', function () {
         let set = this.dataset, value = parseFloat(this.value) || 0;
-        let min = typeof set.valueMin === 'undefined' ? this.min : set.valueMin;
-        let max = typeof set.valueMax === 'undefined' ? this.max : set.valueMax;
-        if (typeof min !== 'undefined' && value < min) value = parseFloat(min) || 0;
-        if (typeof max !== 'undefined' && value > max) value = parseFloat(max) || 0;
+        let min = $.isNumeric(set.valueMin) ? set.valueMin : this.min;
+        let max = $.isNumeric(set.valueMax) ? set.valueMax : this.max;
+        if ($.isNumeric(min) && value < min) value = parseFloat(min) || 0;
+        if ($.isNumeric(max) && value > max) value = parseFloat(max) || 0;
         this.value = value.toFixed(parseInt(set.blurNumber) || 0);
     });
 
