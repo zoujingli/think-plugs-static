@@ -632,7 +632,9 @@ $(function () {
         }, this.render = function (tabldId) {
             return this.reload(tabldId, true);
         }, this.reload = function (tabldId, force) {
-            return typeof tabldId === 'string' ? $('#' + tabldId).trigger(force ? 'render' : 'reload') : $.form.reload();
+            return typeof tabldId === 'string' ? tabldId.split(',').map(function (tableid) {
+                $('#' + tableid).trigger(force ? 'render' : 'reload')
+            }) : $.form.reload();
         }, this.create = function (table, params) {
             // 动态初始化表格
             table.id = table.id || 't' + Math.random().toString().replace('.', '');
