@@ -803,9 +803,13 @@ $(function () {
 
     /*! 注册 data-search 表单搜索行为 */
     $.base.onEvent('submit', 'form.form-search', function () {
-        if (this.dataset.tableId) return $('table#' + this.dataset.tableId).trigger('reload', {
-            page: {curr: 1}, where: $(this).formToJson()
-        });
+        if (this.dataset.tableId) {
+            return this.data.tableId.split(',').map(function (tableid) {
+                $('table#' + tableid).trigger('reload', {
+                    page: {curr: 1}, where: $(this).formToJson()
+                });
+            });
+        }
         let url = $(this).attr('action').replace(/&?page=\d+/g, '');
         if ((this.method || 'get').toLowerCase() === 'get') {
             let split = url.indexOf('?') > -1 ? '&' : '?', stype = location.href.indexOf('spm=') > -1 ? '#' : '';
