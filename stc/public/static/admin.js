@@ -684,13 +684,17 @@ $(function () {
                 if (option.page === false) (opts || {}).page = false;
                 data = $.extend({}, data, (opts || {}).where || {});
                 opts = bindData($.extend({}, opts || {}, {loading: true}));
-                if (evt.type.indexOf('reload') > -1) {
-                    layui.table.reloadData(table.id, opts);
-                } else {
-                    layui.table.render(table.id, opts);
-                }
+                table.id.split(',').map(function (tableid) {
+                    if (evt.type.indexOf('reload') > -1) {
+                        layui.table.reloadData(tableid, opts);
+                    } else {
+                        layui.table.render(tableid, opts);
+                    }
+                })
             }).bind('row sort tool edit radio toolbar checkbox rowDouble', function (evt, call) {
-                layui.table.on(evt.type + '(' + table.dataset.id + ')', call)
+                table.id.split(',').map(function (tableid) {
+                    layui.table.on(evt.type + '(' + tableid + ')', call)
+                })
             }).bind('setFullHeight', function () {
                 $table.trigger('render', {height: $(window).height() - $table.next().offset().top - 35})
             }).trigger('sort', function (rets) {
