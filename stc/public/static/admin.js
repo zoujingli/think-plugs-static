@@ -652,6 +652,8 @@ $(function () {
             if (option.height === 'full') if ($table.parents('.iframe-pagination').size()) {
                 $table.parents('.iframe-pagination').addClass('not-footer');
                 option.height = $(window).height() - $table.removeClass('layui-hide').offset().top - 20;
+            } else if ($table.parents('.laytable-pagination').size()) {
+                option.height = $table.parents('.laytable-pagination').height() - $table.removeClass('layui-hide').position().top - 20;
             } else {
                 option.height = $(window).height() - $table.removeClass('layui-hide').offset().top - 35;
             }
