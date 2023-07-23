@@ -806,10 +806,9 @@ $(function () {
     /*! 注册 data-search 表单搜索行为 */
     $.base.onEvent('submit', 'form.form-search', function () {
         if (this.dataset.tableId) {
+            let data = $(this).formToJson();
             return this.dataset.tableId.split(',').map(function (tableid) {
-                $('table#' + tableid).trigger('reload', {
-                    page: {curr: 1}, where: $(this).formToJson()
-                });
+                $('table#' + tableid).trigger('reload', {page: {curr: 1}, where: data});
             });
         }
         let url = $(this).attr('action').replace(/&?page=\d+/g, '');
