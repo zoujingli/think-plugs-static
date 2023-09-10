@@ -784,8 +784,8 @@ $(function () {
         $dom && $($dom).filter('form[data-auto]') && $els.add($dom);
         return $els.map(function (idx, form) {
             $(this).vali(function (data) {
-                let dset = form.dataset, type = form.method || 'POST', href = form.action || location.href;
-                let tips = dset.tips || undefined, time = dset.time || undefined, taid = dset.tableId || false;
+                let type = form.getAttribute('method') || 'POST', href = form.getAttribute('action') || location.href;
+                let dset = form.dataset, tips = dset.tips || undefined, time = dset.time || undefined, taid = dset.tableId || false;
                 let call = window[dset.callable || '_default_callable'] || (taid ? function (ret) {
                     if (typeof ret === 'object' && ret.code > 0 && $('#' + taid).size() > 0) {
                         return $.msg.success(ret.info, 3, function () {
