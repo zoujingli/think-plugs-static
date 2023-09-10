@@ -359,12 +359,14 @@ $(function () {
         };
         /*! 打开 IFRAME 窗口 */
         this.iframe = function (url, name, area, offset, destroy, success, isfull) {
+            if (typeof area === 'string' && area.indexOf('[') === 0) area = eval('(' + area + ')');
             this.idx = layer.open({title: name || '窗口', type: 2, area: area || ['800px', '580px'], end: destroy || null, offset: offset, fixed: true, maxmin: false, content: url, success: success});
             return isfull && layer.full(this.idx), this.idx;
         };
         /*! 加载 HTML 到弹出层，返回 refer 对象 */
         this.modal = function (url, data, name, call, load, tips, area, offset, isfull) {
             return this.load(url, data, 'GET', function (res, time, defer) {
+                if (typeof area === 'string' && area.indexOf('[') === 0) area = eval('(' + area + ')');
                 return typeof res === 'object' ? $.msg.auto(res) : $.msg.mdx.push(this.idx = layer.open({
                     type: 1, btn: false, area: area || '800px', offset: offset || 'auto', resize: false, content: res,
                     title: name === 'false' ? '' : name, end: () => defer.notify('modal.close'), success: function ($dom, idx) {
