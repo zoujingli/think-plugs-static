@@ -119,6 +119,10 @@ define(function () {
     }
 
     /*! 直接推送表格内容 */
+    //    url： 记录推送地址
+    //  sheet： 表格 Sheet 名称
+    //   cols： { _: 1, 表头名1: 字段名1, 表头名2: 字段名2 }，其中字段 _ 配置起始行
+    // filter： 数据过滤处理，如果返回 false 不上传记录
     Excel.prototype.push = function (url, sheet, cols, filter) {
         let loaded, $input;
         $input = $('<input class="layui-hide" type="file" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">');
