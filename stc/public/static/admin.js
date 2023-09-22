@@ -644,9 +644,7 @@ $(function () {
             option.id = table.id, option.elem = table, option.url = params.url || table.dataset.url || location.href;
             option.limit = params.limit || 20, option.loading = params.loading !== false, option.autoSort = params.autoSort === true;
             option.page = params.page !== false ? (params.page || true) : false, option.cols = params.cols || [[]], option.success = params.done || '';
-            // 初始化不显示头部
-            let cls = ['.layui-table-header', '.layui-table-fixed', '.layui-table-body', '.layui-table-page'];
-            option.css = (option.css || '') + cls.join('{opacity:0}') + '{opacity:0}';
+
             // 默认动态设置页数, 动态设置最大高度
             if (option.page === true) option.page = {curr: layui.sessionData('pages')[option.id] || 1};
             if (option.height === 'full') if ($table.parents('.iframe-pagination').size()) {
@@ -657,12 +655,18 @@ $(function () {
             } else {
                 option.height = $(window).height() - $table.removeClass('layui-hide').offset().top - 35;
             }
+
+            // 初始化不显示头部
+            let cls = ['.layui-table-header', '.layui-table-fixed', '.layui-table-body', '.layui-table-page'];
+            option.css = (typeof option.height === 'number' ? '{height:' + option.height + 'px}' : '') + (option.css || '') + cls.concat(['']).join('{opacity:0}');
+
             // 动态计算最大页数
             option.done = function (res, curr, count) {
                 layui.sessionData('pages', {key: table.id, value: this.page.curr || 1});
                 typeof option.success === 'function' && option.success.call(this, res, curr, count);
                 $.form.reInit($table.next()).find('[data-load][data-time!="false"],[data-action][data-time!="false"],[data-queue],[data-iframe]').not('[data-table-id]').attr('data-table-id', table.id);
                 (option.loading = this.loading = true) && $table.data('next', this).next().find(cls.join(',')).animate({opacity: 1});
+
             }, option.parseData = function (res) {
                 if (typeof params.filter === 'function') {
                     res.data = params.filter(res.data, res);
