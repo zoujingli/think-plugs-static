@@ -752,27 +752,20 @@ table[data-line='3'] + div tbody .layui-table-cell {
   box-shadow: @ShadowOuterMax;
   border-radius: @BoxBorderRadius;
 
-  &[type]:before {
-    top: 0;
-    left: 0;
-    width: 6px;
-    height: 100%;
-    content: '';
-    display: inline-block;
-    position: absolute;
-    background: #16baaa;
+  &[type] {
+    border-left: 6px solid #16baaa;
   }
 
-  &[type=info]:before {
-    background: #31bdec;
+  &[type=info] {
+    border-left: 6px solid #31bdec;
   }
 
-  &[type=error]:before {
-    background: #ff5722;
+  &[type=error] {
+    border-left: 6px solid #ff5722;
   }
 
-  &[type=success]:before {
-    background: #16b777;
+  &[type=success] {
+    border-left: 6px solid #16b777;
   }
 
   > b {
