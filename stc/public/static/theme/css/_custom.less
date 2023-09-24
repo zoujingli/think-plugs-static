@@ -743,12 +743,37 @@ table[data-line='3'] + div tbody .layui-table-cell {
 .think-box-notify {
   display: block;
   padding: 18px 20px;
+  position: relative;
+  overflow: hidden;
   font-size: 14px;
   background: #FFF;
-  line-height: 1em;
+  line-height: 1.4em;
   margin-bottom: 10px;
   box-shadow: @ShadowOuterMax;
   border-radius: @BoxBorderRadius;
+
+  &[type]:before {
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    content: '';
+    display: inline-block;
+    position: absolute;
+    background: #16baaa;
+  }
+
+  &[type=info]:before {
+    background: #31bdec;
+  }
+
+  &[type=error]:before {
+    background: #ff5722;
+  }
+
+  &[type=success]:before {
+    background: #16b777;
+  }
 
   > b {
     font-size: 15px;
