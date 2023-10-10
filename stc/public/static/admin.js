@@ -647,6 +647,7 @@ $(function () {
 
             // 默认动态设置页数, 动态设置最大高度
             if (option.page === true) option.page = {curr: layui.sessionData('pages')[option.id] || 1};
+            if (option.width === 'full') option.width = $table.parent().width();
             if (option.height === 'full') if ($table.parents('.iframe-pagination').size()) {
                 $table.parents('.iframe-pagination').addClass('not-footer');
                 option.height = $(window).height() - $table.removeClass('layui-hide').offset().top - 20;
