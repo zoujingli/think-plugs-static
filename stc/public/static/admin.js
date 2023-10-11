@@ -656,6 +656,7 @@ $(function () {
             } else {
                 option.height = $(window).height() - $table.removeClass('layui-hide').offset().top - 35;
             }
+            if (option.width === 'full') option.width = $table.parent().width()
 
             // 初始化不显示头部
             let cls = ['.layui-table-header', '.layui-table-fixed', '.layui-table-body', '.layui-table-page'];
