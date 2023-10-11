@@ -665,9 +665,8 @@ $(function () {
             option.done = function (res, curr, count) {
                 layui.sessionData('pages', {key: table.id, value: this.page.curr || 1});
                 typeof option.success === 'function' && option.success.call(this, res, curr, count);
-                $.form.reInit($table.next()).find('[data-load][data-time!="false"],[data-action][data-time!="false"],[data-queue],[data-iframe]').not('[data-table-id]').attr('data-table-id', table.id);
+                $.form.reInit($table.next()).find('[data-open],[data-load][data-time!="false"],[data-action][data-time!="false"],[data-queue],[data-iframe]').not('[data-table-id]').attr('data-table-id', table.id);
                 (option.loading = this.loading = true) && $table.data('next', this).next().find(cls.join(',')).animate({opacity: 1});
-
             }, option.parseData = function (res) {
                 if (typeof params.filter === 'function') {
                     res.data = params.filter(res.data, res);
@@ -901,7 +900,12 @@ $(function () {
 
     /*! 注册 data-open 事件行为 */
     $.base.onEvent('click', '[data-open]', function () {
+        // 仅记录当前表格分页
+        let page = 0, tbid = this.dataset.tableId || null;
+        if (tbid) page = layui.sessionData('pages')[tbid] || 0;
         layui.sessionData('pages', null);
+        if (page > 0) layui.sessionData('pages', {key: tbid, value: page})
+        // 根据链接类型跳转页面
         if (this.dataset.open.match(/^https?:/)) {
             $.form.goto(this.dataset.open);
         } else {
@@ -921,6 +925,7 @@ $(function () {
     /*! 注册 data-modal 事件行为 */
     $.base.onEvent('click', '[data-modal]', function () {
         $.base.applyRuleValue(this, {open_type: 'modal'}, function (data, elem, dset) {
+            let area = dset.area || [dset.width || '800px', dset.height || '580px'];
             let defer = $.form.modal(dset.modal, data, dset.title || this.innerText || '编辑', undefined, undefined, undefined, dset.area || dset.width || '800px', dset.offset || 'auto', dset.full !== undefined);
             defer.progress((type) => type === 'modal.close' && dset.closeRefresh && $.layTable.reload(dset.closeRefresh));
         });
