@@ -390,11 +390,16 @@ $(function () {
         };
         /*! 通过 URI 查询最佳菜单 NODE */
         this.queryNode = function (uri, node) {
-            if (!/^m-/.test(node = node || location.href.replace(/.*spm=([\d\-m]+).*/ig, '$1'))) {
-                let $menu = $('[data-menu-node][data-open*="' + uri.replace(/\.html$/ig, '') + '"]');
-                return $menu.size() ? $menu.get(0).dataset.menuNode : '';
+            // 如果该节点存在直接返回 Node 值
+            if (/^m-/.test(node = node || location.href.replace(/.*spm=([\d\-m]+).*/ig, '$1'))) {
+                if ($('[data-menu-node="' + node + '"]').size()) return node;
             }
-            return node;
+            // 尝试通过 URI 查询节点值
+            let $menu = $('[data-menu-node][data-open*="' + uri.replace(/\.html$/ig, '') + '"]');
+            if ($menu.size()) return $menu.get(0).dataset.menuNode;
+            // 尝试通过 URL 查询节点值
+            $menu = $('[data-menu-node][data-open~="#' + uri.replace(/\.html$/ig, '') + '"]');
+            return $menu.size() ? $menu.get(0).dataset.menuNode : (node || '');
         };
         /*! 完整 URL 转 URI 地址 */
         this.parseUri = function (uri, elem, vars, temp, attrs) {
@@ -425,6 +430,7 @@ $(function () {
                     layer.close(evt.idx);
                 });
             });
+
             /*! 监听窗口大小及HASH切换 */
             return $(window).on('resize', function () {
                 (layui.data('AdminMenuType')['mini'] || $body.width() < 1000) ? layout.addClass(mclass) : layout.removeClass(mclass);
