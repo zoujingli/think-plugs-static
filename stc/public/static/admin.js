@@ -400,7 +400,7 @@ $(function () {
             if ($menu.size()) return $menu.get(0).dataset.menuNode;
             // 尝试通过 URL 查询节点值
             $menu = $('[data-menu-node][data-open~="#' + path + '"]');
-            return $menu.size() ? $menu.get(0).dataset.menuNode : (node || '');
+            return $menu.size() ? $menu.get(0).dataset.menuNode : (/^m-/.test(node || '') ? node : '');
         };
         /*! 完整 URL 转 URI 地址 */
         this.parseUri = function (uri, elem, vars, temp, attrs) {
