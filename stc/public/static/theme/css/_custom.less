@@ -23,6 +23,30 @@
 // .flex-center
 // .flex-between
 
+@nums: 0, 5, 10, 15, 20, 25, 30;
+each({
+  m: margin;
+  p: padding;
+}, .(@tv,@tt) {
+  .ta-@{tt} {
+    each(@nums, .(@n) {
+      &@{n} {
+          @{tv}: @n * 1px !important;
+      }
+      each({
+        t: -top;
+        l: -left;
+        r: -right;
+        b: -bottom;
+      }, .(@d,@k) {
+        &@{k}@{n} {
+            @{tv}@{d}: @n * 1px !important;
+        }
+      });
+    })
+  }
+})
+
 .flex {
   #flex();
 
@@ -689,44 +713,18 @@ table[data-line='3'] + div tbody .layui-table-cell {
   }
 }
 
-@think-elips: {
-  display: -webkit-box;
-  overflow: hidden;
-  line-height: 1.4em;
-  text-overflow: ellipsis;
-  -webkit-box-orient: vertical;
-}
-
 .think-elips {
-  &-1 {
-    @think-elips();
-    line-clamp: 1;
-    -webkit-line-clamp: 1;
-  }
-
-  &-2 {
-    @think-elips();
-    line-clamp: 2;
-    -webkit-line-clamp: 2;
-  }
-
-  &-3 {
-    @think-elips();
-    line-clamp: 3;
-    -webkit-line-clamp: 3;
-  }
-
-  &-4 {
-    @think-elips();
-    line-clamp: 4;
-    -webkit-line-clamp: 4;
-  }
-
-  &-5 {
-    @think-elips();
-    line-clamp: 5;
-    -webkit-line-clamp: 5;
-  }
+  each(range(5), {
+    &-@{value} {
+      display: -webkit-box;
+      overflow: hidden;
+      line-height: 1.4em;
+      text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+      line-clamp: @value;
+      -webkit-line-clamp: @value;
+    }
+  })
 }
 
 .think-box-shadow {
