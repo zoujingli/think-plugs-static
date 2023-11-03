@@ -1435,82 +1435,44 @@ label.think-checkbox {
   }
 }
 
-.color- {
-  &red {
-    color: #e44 !important
-  }
+@sizes: 10, 12, 14;
 
-  &blue {
-    color: #29f !important
-  }
-
-  &desc {
-    color: #999 !important
-  }
-
-  &text {
-    color: #333 !important
-  }
-
-  &green {
-    color: #090 !important
-  }
+@colors: {
+  red: #e44;
+  blue: #29f;
+  desc: #999;
+  text: #333;
+  green: #090;
 }
 
-.sub-span- {
-  &red span {
-    color: #e44
-  }
-
-  &blue span {
-    color: #29f
-  }
-
-  &desc span {
-    color: #999
-  }
-
-  &text span {
-    color: #333
-  }
-
-  &green span {
-    color: #090
-  }
+.sub-span {
+  each(@colors, {
+    &-@{key} span {
+      color: @value;
+    }
+  })
 }
 
-.sub-strong- {
-  &s10 b {
-    font-size: 10px;
-  }
+.color {
+  each(@colors, {
+    &-@{key} {
+      color: @value !important;
+    }
+  })
+}
 
-  &s12 b {
-    font-size: 12px;
-  }
 
-  &s14 b {
-    font-size: 14px;
-  }
-
-  &red b {
-    color: #ec494e
-  }
-
-  &blue b {
-    color: #2494f2
-  }
-
-  &desc b {
-    color: #999
-  }
-
-  &text b {
-    color: #333
-  }
-
-  &green b {
-    color: #090
-  }
+.sub-strong {
+  each(@colors, {
+    &-@{key} b {
+      color: @value;
+    }
+  })
+  each(@sizes, {
+    &-s@{value} b {
+      font-size: @value *1px;
+    }
+  })
 }
 
 .think-bg- {
