@@ -1538,8 +1538,8 @@ label.think-checkbox {
   }
 }
 
-.font- {
-  &code {
+.font {
+  &-code {
     font-family: 'Courier New', 'Lucida Console', 'Consolas', 'Helvetica Neue', 'Helvetica', 'PingFang SC', 'Tahoma', 'Arial', sans-serif
   }
 
@@ -1556,7 +1556,7 @@ label.think-checkbox {
     s30: 30px;
     s40: 40px;
   }, {
-    &@{key} {
+    &-@{key} {
       font-size: @value !important
     }
   })
@@ -1572,7 +1572,7 @@ label.think-checkbox {
     w8: 800;
     w9: 900;
   }, {
-    &@{key} {
+    &-@{key} {
       font-weight: @value !important
     }
   })
@@ -1636,8 +1636,8 @@ label.think-checkbox {
 
 @nums: 0, 5, 10, 15, 20, 25, 30, 40;
 each({
-  margin: margin;
-  padding: padding;
+  --margin: margin;
+  --padding: padding;
 }, .(@v) {
   .@{v} {
     each(@nums, {
