@@ -30,7 +30,7 @@ each({
 }, .(@tv,@tt) {
   .ta-@{tt} {
     each(@nums, .(@n) {
-      &@{n} {
+      &-@{n} {
           @{tv}: @n * 1px !important;
       }
       each({
@@ -39,7 +39,7 @@ each({
         r: -right;
         b: -bottom;
       }, .(@d,@k) {
-        &@{k}@{n} {
+        &@{k}-@{n} {
             @{tv}@{d}: @n * 1px !important;
         }
       });
