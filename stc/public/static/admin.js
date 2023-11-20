@@ -972,15 +972,11 @@ $(function () {
 
     /*! 注册 data-copy 事件行为 */
     $.base.onEvent('click', '[data-copy]', function () {
-        let copy = this.dataset.copy || this.innerText;
-        if (window.clipboardData) {
-            window.clipboardData.setData('text', copy);
-            $.msg.tips('已复制到剪贴板！');
-        } else {
-            let $input = $('<textarea readonly></textarea>');
-            $input.css({position: 'fixed', top: '-500px'}).appendTo($body).val(copy).select();
-            $.msg.tips(document.execCommand('Copy') ? '已复制到剪贴板！' : '请使用鼠标操作复制！') && $input.remove();
-        }
+        layui.lay.clipboard.writeText({
+            text: this.dataset.copy || this.innerText,
+            done: () => $.msg.tips('已复制到剪贴板！'),
+            error: () => $.msg.tips('请使用鼠标复制！')
+        })
     });
 
     /*! 异步任务状态监听与展示 */
