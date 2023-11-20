@@ -932,7 +932,6 @@ $(function () {
     /*! 注册 data-modal 事件行为 */
     $.base.onEvent('click', '[data-modal]', function () {
         $.base.applyRuleValue(this, {open_type: 'modal'}, function (data, elem, dset) {
-            let area = dset.area || [dset.width || '800px', dset.height || '580px'];
             let defer = $.form.modal(dset.modal, data, dset.title || this.innerText || '编辑', undefined, undefined, undefined, dset.area || dset.width || '800px', dset.offset || 'auto', dset.full !== undefined);
             defer.progress((type) => type === 'modal.close' && dset.closeRefresh && $.layTable.reload(dset.closeRefresh));
         });
