@@ -685,7 +685,7 @@ $(function () {
                 return res;
             };
             // 关联搜索表单
-            let sform, search = params.search || table.dataset.targetSearch;
+            let sform, search = params.search || table.dataset.targetSearch || 'form[data-table-id="' + table.id + '"] [data-form-export]';
             if (search) (sform = $body.find(search)).map(function () {
                 $(this).attr('data-table-id', table.id);
             });
