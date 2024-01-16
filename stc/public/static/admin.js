@@ -946,7 +946,7 @@ $(function () {
             let frame = dset.iframe + (dset.iframe.indexOf('?') > -1 ? '&' : '?') + $.param(data);
             $(this).attr('data-index', $.form.iframe(frame + '&' + $.param(data), name, area, dset.offset || 'auto', function () {
                 typeof dset.refresh !== 'undefined' && $.layTable.reload(dset.tableId || true);
-            }, undefined, dset.full !== undefined), dset.maxmin || false);
+            }, undefined, dset.full !== undefined, dset.maxmin || false));
         })
     });
 
