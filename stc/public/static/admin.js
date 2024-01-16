@@ -933,7 +933,7 @@ $(function () {
     /*! 注册 data-modal 事件行为 */
     $.base.onEvent('click', '[data-modal]', function () {
         $.base.applyRuleValue(this, {open_type: 'modal'}, function (data, elem, dset) {
-            let defer = $.form.modal(dset.modal, data, dset.title || this.innerText || '编辑', undefined, undefined, undefined, dset.area || dset.width || '800px', dset.offset || 'auto', dset.full !== undefined);
+            let defer = $.form.modal(dset.modal, data, dset.title || this.innerText || '编辑', undefined, undefined, undefined, dset.area || dset.width || '800px', dset.offset || 'auto', dset.full !== undefined, dset.maxmin || false);
             defer.progress((type) => type === 'modal.close' && dset.closeRefresh && $.layTable.reload(dset.closeRefresh));
         });
     });
@@ -946,7 +946,7 @@ $(function () {
             let frame = dset.iframe + (dset.iframe.indexOf('?') > -1 ? '&' : '?') + $.param(data);
             $(this).attr('data-index', $.form.iframe(frame + '&' + $.param(data), name, area, dset.offset || 'auto', function () {
                 typeof dset.refresh !== 'undefined' && $.layTable.reload(dset.tableId || true);
-            }, undefined, dset.full !== undefined));
+            }, undefined, dset.full !== undefined), dset.maxmin || false);
         })
     });
 
