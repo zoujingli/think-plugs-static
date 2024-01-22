@@ -418,53 +418,50 @@ $(function () {
         };
         /*! 后台菜单动作初始化 */
         this.listen = function () {
-            let layout = $('.layui-layout-admin'), mclass = 'layui-layout-left-mini';
+            let layout = $('.layui-layout-admin'), mini = 'layui-layout-left-mini';
             /*! 菜单切及MiniTips处理 */
             $.base.onEvent('click', '[data-target-menu-type]', function () {
-                layui.data('AdminMenuType', {key: 'mini', value: layout.toggleClass(mclass).hasClass(mclass)});
+                layui.data('AdminMenuType', {key: 'mini', value: layout.toggleClass(mini).hasClass(mini)});
             }).on('click', '[data-submenu-layout]>a', function () {
                 setTimeout("$.menu.sync(1)", 100);
             }).on('mouseenter', '[data-target-tips]', function (evt) {
-                if (!layout.hasClass(mclass) || !this.dataset.targetTips) return;
+                if (!layout.hasClass(mini) || !this.dataset.targetTips) return;
                 evt.idx = layer.tips(this.dataset.targetTips, this, {time: 0});
-                $(this).mouseleave(function () {
-                    layer.close(evt.idx);
-                });
+                $(this).mouseleave(() => layer.close(evt.idx));
             });
-
             /*! 监听窗口大小及HASH切换 */
             return $(window).on('resize', function () {
-                (layui.data('AdminMenuType')['mini'] || $body.width() < 1000) ? layout.addClass(mclass) : layout.removeClass(mclass);
+                (layui.data('AdminMenuType')['mini'] || $body.width() < 1000) ? layout.addClass(mini) : layout.removeClass(mini);
             }).trigger('resize').on('hashchange', function () {
                 if (/^#(https?:)?(\/\/|\\\\)/.test(location.hash)) return $.msg.tips('禁止访问外部链接！');
-                if (location.hash.length < 1) return $body.find('[data-menu-node]:first').trigger('click'); else return $.menu.href(location.hash);
+                return location.hash.length < 1 ? $body.find('[data-menu-node]:first').trigger('click') : $.menu.href(location.hash);
             }).trigger('hashchange');
         };
-        /*! 同步二级菜单展示状态 */
+        /*! 同步二级菜单展示状态(1同步缓存,2同步展示) */
         this.sync = function (mode) {
             $('[data-submenu-layout]').map(function () {
                 let node = this.dataset.submenuLayout;
-                if (mode === 1) layui.data('AdminMenuState', {key: node, value: $(this).hasClass('layui-nav-itemed') ? 2 : 1}); else if (mode === 2) (layui.data('AdminMenuState')[node] || 2) === 2 && $(this).addClass('layui-nav-itemed');
+                if (mode === 1) layui.data('AdminMenuState', {key: node, value: $(this).hasClass('layui-nav-itemed') ? 2 : 1});
+                if (mode === 2) (layui.data('AdminMenuState')[node] || 0) === 2 && $(this).addClass('layui-nav-itemed');
             });
         };
         /*! 页面 LOCATION-HASH 跳转 */
         this.href = function (hash, node) {
             if ((hash || '').length < 1) return $('[data-menu-node]:first').trigger('click');
-            // $.msg.page.show(),$.form.load(hash, {}, 'get', $.msg.page.hide, true),$.menu.sync(2);
             $.form.load(hash, {}, 'get', false, !$.msg.page.stat()), $.menu.sync(2);
-            /*! 菜单选择切换 */
+            // 菜单选择切换
             if (/^m-/.test(node = node || $.menu.queryNode($.menu.getUri()))) {
-                let arr = node.split('-'), tmp = arr.shift(), $all = $('a[data-menu-node]').parent('.layui-this');
+                let arr = node.split('-'), tmp = arr.shift(), all = $('a[data-menu-node]').parent('.layui-this');
                 while (arr.length > 0) {
                     tmp = tmp + '-' + arr.shift();
-                    $all = $all.not($('a[data-menu-node="' + tmp + '"]').parent().addClass('layui-this'));
+                    all = all.not($('a[data-menu-node="' + tmp + '"]').parent().addClass('layui-this'));
                 }
-                $all.removeClass('layui-this');
-                /*! 菜单模式切换 */
+                all.removeClass('layui-this');
+                // 菜单模式切换
                 if (node.split('-').length > 2) {
-                    let _tmp = node.split('-'), _node = _tmp.shift() + '-' + _tmp.shift();
-                    $('[data-menu-layout]').not($('[data-menu-layout="' + _node + '"]').removeClass('layui-hide')).addClass('layui-hide');
-                    $('[data-menu-node="' + node + '"]').parent().parent().parent().addClass('layui-nav-itemed');
+                    let tmp = node.split('-'), pnode = tmp.slice(0, 2).join('-'), snode = tmp.slice(0, 3).join('-')
+                    $('[data-menu-layout]').not($('[data-menu-layout="' + pnode + '"]').removeClass('layui-hide')).addClass('layui-hide');
+                    $('[data-submenu-layout="' + snode + '"]').addClass('layui-nav-itemed');
                     $('.layui-layout-admin').removeClass('layui-layout-left-hide');
                 } else {
                     $('.layui-layout-admin').addClass('layui-layout-left-hide');
