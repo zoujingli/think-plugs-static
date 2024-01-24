@@ -648,6 +648,7 @@ $(function () {
             option.id = table.id, option.elem = table, option.url = params.url || table.dataset.url || location.href;
             option.limit = params.limit || 20, option.loading = params.loading !== false, option.autoSort = params.autoSort === true;
             option.page = params.page !== false ? (params.page || true) : false, option.cols = params.cols || [[]], option.success = params.done || '';
+            option.cellExpandedMode = option.cellExpandedMode || 'tips',
 
             // 默认动态设置页数, 动态设置最大高度
             if (option.page === true) option.page = {curr: layui.sessionData('pages')[option.id] || 1};
