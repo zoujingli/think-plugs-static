@@ -106,6 +106,10 @@ $(function () {
         this.onConfirm.getLoadCallable = function (tabldId, callable) {
             typeof callable === 'function' && callable();
             return tabldId ? function (ret, time) {
+                // 单独处理 javascript: 返回内容处理
+                if (typeof ret.data === 'string' && ret.data.indexOf('javascript:') === 0) {
+                    $.msg.goto(ret.data)
+                }
                 if (ret.code < 1) return true;
                 time === 'false' ? $.layTable.reload(tabldId) : $.msg.success(ret.info, time, function () {
                     $.layTable.reload(tabldId);
