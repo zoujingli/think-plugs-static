@@ -559,7 +559,7 @@ $(function () {
                 'data-max-width': $in.data('max-width') || 0, 'data-max-height': $in.data('max-height') || 0,
                 'data-cut-width': $in.data('cut-width') || 0, 'data-cut-height': $in.data('cut-height') || 0,
             }).on('push', function (evt, src) {
-                ims.push(src), $in.val(ims.join('|')), showImageContainer([src]);
+                ims.push(src), $in.val(ims.join('|')).trigger('change'), showImageContainer([src]);
             }) && (ims.length > 0 && showImageContainer(ims));
 
             function showImageContainer(srcs) {
@@ -572,7 +572,7 @@ $(function () {
                         ims = [], $bt.prevAll('.uploadimage').map(function () {
                             ims.push($(this).attr('data-tips-image'));
                         });
-                        ims.reverse(), $in.val(ims.join('|'));
+                        ims.reverse(), $in.val(ims.join('|')).trigger('change');
                     }), $bt.before($img);
                 });
             }
