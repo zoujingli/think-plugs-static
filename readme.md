@@ -8,15 +8,17 @@
 [![PHP Version](https://doc.thinkadmin.top/static/icon/php-7.1.svg)](https://thinkadmin.top)
 [![License](https://doc.thinkadmin.top/static/icon/license-mit.svg)](https://mit-license.org)
 
-**ThinkAdmin** 后台 **UI** 框架及部分系统初始化文件，开源免费可商用！
+**ThinkAdmin** 后台提供了功能强大的 **UI** 框架，并附带部分系统初始化文件，遵循 MIT 协议，不仅开源，而且完全免费并可用于商业项目。
 
-代码主仓库放在 **Gitee**，**Github** 仅为镜像仓库用于发布 **Composer** 包。
+主要代码仓库托管在 **Gitee**，而 **Github** 仅作为镜像仓库，用于发布 **Composer** 包，方便开发者快速集成。
 
-安装此插件会占用并替换 `public/static` 部分目录（自定义脚本和样式 `public/static/extra` 目录除外），若有对 `public/static` 修改不建议安装此插件，否则会造成修改的内容丢失！
+请注意，安装此插件将会占用并替换 `public/static` 目录下的部分文件（但自定义脚本和样式保存在 `public/static/extra` 目录内的文件将不会被替换）。因此，如果您曾对 `public/static` 目录进行了自定义修改，我们建议您在安装此插件之前备份相关文件，以避免重要内容丢失。
 
-使用 `Composer` 卸载此插件时，不会自动删除或还原 `public/static` 目录，需要手动删除目录和系统初始化文件。
+当您使用 `Composer` 卸载此插件时，请留意它并不会自动删除或还原 `public/static` 目录中的文件，也不会自动移除系统初始化文件。为了确保系统的整洁和一致性，这些操作需要您手动完成。
 
-`layui 2.8` 于 2023/04/24 正式发布，此插件已同步更新。
+我们建议您在安装或更新插件前，仔细阅读相关文档，确保了解可能的影响，并采取相应的预防措施。
+
+`layui 2.8` 于 2023/04/24 正式发布，此插件会同步保持更新。
 
 ### 安装插件
 
