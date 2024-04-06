@@ -5,8 +5,8 @@
 [![Total Downloads](https://poser.pugx.org/zoujingli/think-plugs-static/downloads)](https://packagist.org/packages/zoujingli/think-plugs-static)
 [![Monthly Downloads](https://poser.pugx.org/zoujingli/think-plugs-static/d/monthly)](https://packagist.org/packages/zoujingli/think-plugs-static)
 [![Daily Downloads](https://poser.pugx.org/zoujingli/think-plugs-static/d/daily)](https://packagist.org/packages/zoujingli/think-plugs-static)
-[![PHP Version](https://doc.thinkadmin.top/static/icon/php-7.1.svg)](https://thinkadmin.top)
-[![License](https://doc.thinkadmin.top/static/icon/license-mit.svg)](https://mit-license.org)
+[![PHP Version](https://thinkadmin.top/static/icon/php-7.1.svg)](https://thinkadmin.top)
+[![License](https://thinkadmin.top/static/icon/license-mit.svg)](https://mit-license.org)
 
 **ThinkAdmin** 后台提供了功能强大的 **UI** 框架，并附带部分系统初始化文件，遵循 MIT 协议，不仅开源，而且完全免费并可用于商业项目。
 
