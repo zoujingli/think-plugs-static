@@ -678,6 +678,9 @@ $(function () {
                 (option.loading = this.loading = true) && $table.data('next', this).next().find(cls.join(',')).animate({opacity: 1});
                 setTimeout(() => layui.table.resize(table.id), 10);
             }, option.parseData = function (res) {
+                if (res.code === 0 && res.url) {
+                    return $.msg.auto(res);
+                }
                 if (typeof params.filter === 'function') {
                     res.data = params.filter(res.data, res);
                 }
