@@ -50,7 +50,7 @@ each({
 })
 
 .flex {
-  display: flex;
+  #flex();
   each(range(5), {
     &-@{value} {
       flex: @value;
@@ -58,100 +58,115 @@ each({
   });
 
   &-x {
+    #flex();
+    #flexDirection(row);
     height: 100%;
-    display: flex;
-    flex-direction: row;
 
     &-center {
-      display: flex;
-      align-items: center;
-    }
-
-    &-normal {
-      justify-content: flex-start;
-    }
-
-    &-between {
-      display: flex;
-      justify-content: space-between;
+      #flex();
+      height: 100%;
+      #flexAlign(center)
     }
   }
 
   &-y {
+    #flex();
     width: 100%;
-    display: flex;
-    flex-direction: column;
+    #flexDirection(column);
 
     &-center {
-      display: flex;
-      justify-content: center;
+      #flex();
+      width: 100%;
+      #flexJustify(center);
     }
-  }
-
-  &-wrap {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  &-nowrap {
-    display: flex;
-    flex-wrap: nowrap;
   }
 
   &-center {
-    display: flex;
-    align-items: center !important;
-    align-content: center !important;
-    justify-content: center !important;
+    #flex();
+    #flexAlign(center);
+    #flexJustify(center);
   }
 
-  &-align {
-    &-end {
-      display: flex;
-      align-items: flex-end !important;
+  &-between {
+    #flex();
+    justify-content: space-between;
+  }
+
+  &-inline {
+    display: inline-flex;
+  }
+
+  &-wrap {
+    #flexWrap(wrap);
+
+    &-no {
+      #flexWrap(nowrap);
     }
 
-    &-start {
-      display: flex;
-      align-items: flex-start !important;
-    }
-
-    &-center {
-      display: flex;
-      align-items: center !important;
+    &-rev {
+      #flexWrap(wrap-reverse);
     }
   }
 
-  &-justify {
-    &-end {
-      display: flex;
-      justify-content: flex-end !important;
+  // 主轴方向
+  &-direction- {
+    &row {
+      #flexDirection(row);
+
+      &reverse {
+        #flexDirection(row-reverse);
+      }
     }
 
-    &-start {
-      display: flex;
-      justify-content: flex-start !important;
+    &column {
+      #flexDirection(column);
+
+      &-reverse {
+        #flexDirection(column-reverse);
+      }
+    }
+  }
+
+  // 垂直方向
+  &-align- {
+    &start {
+      #flexAlign(flex-start);
     }
 
-    &-center {
-      display: flex;
-      justify-items: center !important;
+    &end {
+      #flexAlign(flex-end);
     }
 
-    &-space {
-      &-between {
-        display: flex;
-        justify-content: space-between !important;
+    &center {
+      #flexAlign(center)
+    }
+  }
+
+  // 横向布局
+  &-justify- {
+    &start {
+      #flexJustify(flex-start);
+    }
+
+    &center {
+      #flexJustify(center);
+    }
+
+    &end {
+      #flexJustify(flex-end);
+    }
+
+    &space- {
+      &between {
+        #flexJustify(space-between);
       }
 
-      &-around {
-        display: flex;
-        justify-content: space-around !important;
+      &around {
+        #flexJustify(space-around);
       }
 
-      &-evenly {
-        display: flex;
-        justify-content: space-evenly !important;
+      &evenly {
+        #flexJustify(space-evenly);
       }
     }
   }
