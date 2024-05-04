@@ -129,14 +129,31 @@ each({
       justify-content: flex-end !important;
     }
 
+    &-start {
+      display: flex;
+      justify-content: flex-start !important;
+    }
+
     &-center {
       display: flex;
       justify-items: center !important;
     }
 
-    &-evenly {
-      display: flex;
-      justify-content: space-evenly !important;
+    &-space {
+      &-between {
+        display: flex;
+        justify-content: space-between !important;
+      }
+
+      &-around {
+        display: flex;
+        justify-content: space-around !important;
+      }
+
+      &-evenly {
+        display: flex;
+        justify-content: space-evenly !important;
+      }
     }
   }
 }
@@ -315,6 +332,7 @@ each({
 }
 
 /*! 搜索表单样式 */
+
 .form-search {
   .layui-btn {
     height: 32px;
@@ -378,6 +396,7 @@ each({
 }
 
 /* 自定义表格行高 */
+
 table[data-line] + div tbody {
   .layui-table-cell {
     line-height: 21px;
@@ -433,6 +452,7 @@ table[data-line='3'] + div tbody .layui-table-cell {
 }
 
 /* 表单验证异常提示 */
+
 .label-required {
   &-prev:before {
     color: red;
@@ -464,6 +484,7 @@ table[data-line='3'] + div tbody .layui-table-cell {
 }
 
 /** 手机盒子及微信菜单 */
+
 .mobile-preview {
   width: 317px;
   height: 580px;
@@ -663,6 +684,7 @@ table[data-line='3'] + div tbody .layui-table-cell {
 }
 
 /*! 重置 Iframe 页面样式 */
+
 .iframe-pagination {
   padding: 20px;
 
@@ -1024,6 +1046,7 @@ button.layui-btn:not([type=button]) {
 }
 
 /* 图片选择器样式 */
+
 .image-dialog {
   &-head {
     clear: both;
