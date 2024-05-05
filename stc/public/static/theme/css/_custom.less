@@ -71,8 +71,8 @@ each({
 
   &-y {
     #flex();
-    width: 100%;
     #flexDirection(column);
+    width: 100%;
 
     &-center {
       #flex();
@@ -130,14 +130,17 @@ each({
   // 垂直方向
   &-align- {
     &start {
+      #flex();
       #flexAlign(flex-start);
     }
 
     &end {
+      #flex();
       #flexAlign(flex-end);
     }
 
     &center {
+      #flex();
       #flexAlign(center)
     }
   }
@@ -145,24 +148,27 @@ each({
   // 横向布局
   &-justify- {
     &start {
+      #flex();
       #flexJustify(flex-start);
     }
 
     &center {
+      #flex();
       #flexJustify(center);
     }
 
     &end {
+      #flex();
       #flexJustify(flex-end);
     }
 
     &space- {
-      &between {
-        #flexJustify(space-between);
-      }
-
       &around {
         #flexJustify(space-around);
+      }
+
+      &between {
+        #flexJustify(space-between);
       }
 
       &evenly {
