@@ -1021,8 +1021,8 @@ $(function () {
     /*! 注册 data-tips-image 事件行为 */
     $.base.onEvent('click', '[data-tips-image]', function (event) {
         (event.items = [], event.$imgs = $(this).parent().find('[data-tips-image]')).map(function () {
-            event.items.push({src: this.dataset.tipsImage || this.dataset.lazySrc || this.src || this.value});
-        }) && layer.photos({
+            (src => src && event.items.push({src: src}))(this.dataset.tipsImage || this.dataset.lazySrc || this.src || this.value);
+        }) && event.items.length > 0 && layer.photos({
             anim: 5, closeBtn: 1, photos: {start: event.$imgs.index(this), data: event.items}, tab: function (pic, $ele) {
                 $ele.find('img').attr('referrerpolicy', 'no-referrer');
                 $ele.find('.layui-layer-close').css({top: '20px', right: '20px', position: 'fixed'});
