@@ -42,6 +42,7 @@ require.config({
         'json': ['plugs/jquery/json.min'],
         'xlsx': ['plugs/jquery/xlsx.min'],
         'jszip': ['plugs/jquery/jszip.min'],
+        'editor': ['plugs/editor/create'],
         'marked': ['plugs/jquery/marked.min'],
         'base64': ['plugs/jquery/base64.min'],
         'notify': ['plugs/notify/notify.min'],
@@ -53,6 +54,7 @@ require.config({
         'artplayer': ['plugs/jquery/artplayer.min'],
         'filesaver': ['plugs/jquery/filesaver.min'],
         'websocket': ['plugs/socket/websocket'],
+        'wangEditor': ['plugs/editor/index'],
         'compressor': ['plugs/jquery/compressor.min'],
         'sortablejs': ['plugs/sortable/sortable.min'],
         'vue.sortable': ['plugs/sortable/vue.draggable.min'],
@@ -67,6 +69,7 @@ require.config({
         'cropper': {deps: ['css!' + baseRoot + 'plugs/cropper/cropper.min.css']},
         'websocket': {deps: [baseRoot + 'plugs/socket/swfobject.js']},
         'ckeditor5': {deps: ['jquery', 'upload', 'css!' + baseRoot + 'plugs/ckeditor5/ckeditor.css']},
+        'wangEditor': {deps: ['css!' + baseRoot + 'plugs/editor/css/style.css']},
         'vue.sortable': {deps: ['vue', 'sortablejs']},
         'jquery.ztree': {deps: ['jquery', 'css!' + baseRoot + 'plugs/ztree/zTreeStyle/zTreeStyle.css']},
         'jquery.autocompleter': {deps: ['jquery', 'css!' + baseRoot + 'plugs/jquery/autocompleter.css']},
@@ -80,11 +83,16 @@ define('jquery', [], function () {
 
 /*! 注册 ckeditor 组件 */
 define('ckeditor', (function (type) {
+    if (type === 'wangEditor') return ['editor'];
     if (/^ckeditor[45]$/.test(type)) return [type];
     return [Object.fromEntries ? 'ckeditor5' : 'ckeditor4'];
 })(window.taEditor || 'ckeditor4'), function (ckeditor) {
     return ckeditor;
 });
+
+require(['ckeditor'], function () {
+
+})
 
 $(function () {
 
